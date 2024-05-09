@@ -10,7 +10,6 @@ class TransportadorController extends Controller
     public function list()
     {
         $transportadores = Transportador::orderByDesc('id')->get();
-        dd($transportadores);
         
         return view('transportadores.list', ['transportadores' => $transportadores]);
     }

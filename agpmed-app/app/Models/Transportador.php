@@ -14,4 +14,9 @@ class Transportador extends Model
     protected $fillable = [
         'nome'
     ];
+
+    public function cotacao()
+    {
+        return $this->hasMany(Cotacao::class);
+    }
 }

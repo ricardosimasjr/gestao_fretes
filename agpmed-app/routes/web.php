@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransportadorController;
+use App\Http\Controllers\CotacaoController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/transportadores/edit/{transportador}', [TransportadorController::class, 'edit'])->name('transportador.edit');
     Route::put('/transportadores/update/{transportador}', [TransportadorController::class, 'update'])->name('transportador.update');
     Route::delete('/transportadores/delete/{transportador}', [TransportadorController::class, 'destroy'])->name('transportador.destroy');
+
+    //Cotações
+
+    Route::get('/cotacoes', [CotacaoController::class, 'list'])-> name('cotacoes.list');
+    Route::get('/cotacoes/create', [CotacaoController::class, 'create'])-> name('cotacoes.create');
+
+
 });
 
 require __DIR__.'/auth.php';

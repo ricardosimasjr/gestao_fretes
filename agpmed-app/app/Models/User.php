@@ -44,4 +44,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function cotacao()
+    {
+        return $this->hasMany(Cotacao::class);
+    }
 }
