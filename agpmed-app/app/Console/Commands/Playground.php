@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\ErpNomus\ErpNomusService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Laravel\Tinker\Console\TinkerCommand;
@@ -17,16 +18,11 @@ class Playground extends Command
 
     public function handle()
     {
-        $return = Http::withHeaders(
-            [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Basic aW50ZWdyYWRvcmVycDptOE9SQ3JUZ3VTcHFkeDE=',
-            ])->get('https://agaplastic.nomus.com.br/agaplastic/rest/clientes');
-
-            $json = $return->json();
-
-            dd($json);
-
-            return Command::SUCCESS;
+        $service = new ErpNomusService();
+        $return = $service
+        ->clientes()
+        ->get();
+        $json = $return->json(['0']['nome']);
+        ds($json);
     }
 }

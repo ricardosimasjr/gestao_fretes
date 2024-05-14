@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Services\NomusService;
+namespace App\Services\ErpNomus;
 
+use App\Services\ErpNomus\Endpoints\HasClientes;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 
-class NomusService
+class ErpNomusService
 {
+    use HasClientes;
+
     public PendingRequest $api;
 
     public function __construct()
@@ -14,6 +17,6 @@ class NomusService
         $this->api = Http::withHeaders([
             'Content-Type' => 'application/json',
             'Authorization' => 'Basic aW50ZWdyYWRvcmVycDptOE9SQ3JUZ3VTcHFkeDE=',
-        ])->get('https://agaplastic.nomus.com.br/agaplastic/rest/clientes');
+        ])->baseUrl('https://agaplastic.nomus.com.br/agaplastic/rest');
     }
 }
