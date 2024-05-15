@@ -4,9 +4,6 @@ namespace App\Console\Commands;
 
 use App\Services\ErpNomus\ErpNomusService;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
-use Laravel\Tinker\Console\TinkerCommand;
-use Laravel\Tinker\TinkerCaster;
 
 class Playground extends Command
 {
@@ -22,7 +19,19 @@ class Playground extends Command
         $return = $service
         ->clientes()
         ->get();
-        $json = $return->json(['0']['nome']);
-        ds($json);
+        $json = $return->json();
+
+        if ($json == null) {
+            ds("Vazio");
+        } else {
+            ds($json);    
+        }
+        
+        
+
+        ##foreach ($json as $cliente) {
+          ##  ds($cliente['id'] . '-' . $cliente['nome']);    
+        ##}
+        
     }
 }
