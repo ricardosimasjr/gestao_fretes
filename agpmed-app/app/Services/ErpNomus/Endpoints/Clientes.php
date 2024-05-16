@@ -17,6 +17,6 @@ class Clientes
     {
         return $this->service
         ->api
-        ->get('/clientes?pagina=102');
+        ->get('/clientes/5882');
     }
 }
