@@ -21,17 +21,28 @@ class Playground extends Command
         ->get();
         $json = $return->json();
 
-        if ($json == null) {
-            ds("Vazio");
-        } else {
-            ds($json);    
-        }
+        ds($json);
         
-        
+        #if ($json == null) {
+        #    ds("Vazio");
+        #} else {
+        #    $cliente = $json[0];
+        #    ds($cliente);
 
-        ##foreach ($json as $cliente) {
-          ##  ds($cliente['id'] . '-' . $cliente['nome']);    
-        ##}
+        #if(isset($cliente['cpf'])){
+        #    $cpf_cnpj = $cliente['cpf'];
+        #}
+
+        #if(isset($cliente['cnpj'])){
+        #    $cpf_cnpj = $cliente['cnpj'];
+        #}
+
+        #$nome = $cliente['nome'];
+        #$municipio = $cliente['municipio'];
+        #$uf = $cliente['uf'];
+
+        #ds($cpf_cnpj . " - " . $nome . " - " . $municipio . " - " . $uf);
+        #}
         
     }
 }
