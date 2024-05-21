@@ -5,24 +5,40 @@
 @endsection
 
 @section('content')
+    <form class="row row-cols-lg-auto g-3 align-items-center mb-4" action="" method="POST">
+        @csrf
+        <div class="col-md-6">
+            <input type="text" class="form-control" id="pedido" name="pedido" placeholder="Pedido de Venda">
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-success" id="search" name="search">Buscar</button>
+        </div>
+    </form>
+
+
     <form action="" method="post">
         @csrf
-        <div class="mb-3">
-            <label for="nome" class="form-label">Nome Transportadora</label>
-            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome da Transportadora">
+        <div class="row">
+            <div class="col-2 mb-3">
+                <label for="pedido" class="form-label">Pedido</label>
+                <input type="text" class="form-control" id="pedido" name="pedido" value="">
+            </div>
+            <div class="col-2 mb-3">
+                <label for="cpf_cnpj" class="form-label">Cpf/Cnpj</label>
+                <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" value="">
+            </div>
+            <div class="col-6 mb-3">
+                <label for="cliente" class="form-label">Cliente</label>
+                <input type="text" class="form-control" id="cliente" name="cliente" value="">
+            </div>
+            <div class="col-2 mb-3">
+                <label for="dataPedido" class="form-label">Data Pedido</label>
+                <input type="date" class="form-control" id="dataPedido" name="dataPedido" value="">
+            </div>
         </div>
+
         <div class="mb-3">
-          <label for="user" class="form-label">Nome Usuário</label>
-          <input type="text" class="form-control" id="user" name="user" value="{{ Auth::user()->name}}" >
-      </div>
-          <select class="mb-3 form-select" aria-label="Default select example">
-            <option selected>Selecione</option>
-            @foreach ($transportadores as $transportador)
-            <option value="{{ $transportador->id }}">{{ $transportador->nome}}</option>
-            @endforeach
-          </select>
-          <div class="mb-3">
             <button type="submit" class="btn btn-primary">Salvar</button>
-          </div>
+        </div>
     </form>
 @endsection

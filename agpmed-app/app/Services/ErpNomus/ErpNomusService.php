@@ -3,12 +3,14 @@
 namespace App\Services\ErpNomus;
 
 use App\Services\ErpNomus\Endpoints\HasClientes;
+use App\Services\ErpNomus\Endpoints\HasPedidos;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 
 class ErpNomusService
 {
     use HasClientes;
+    use HasPedidos;
 
     public PendingRequest $api;
 

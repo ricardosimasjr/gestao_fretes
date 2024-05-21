@@ -4,7 +4,7 @@ namespace App\Services\ErpNomus\Endpoints;
 
 use App\Services\ErpNomus\ErpNomusService;
 
-class Clientes
+class Pedidos
 {
     private ErpNomusService $service;
 
@@ -13,10 +13,12 @@ class Clientes
         $this->service = new ErpNomusService();
     }
 
-    public function get($pessoaId)
+    public function get($pedido)
     {
-        return $this->service
-        ->api
-        ->get('/clientes/'.$pessoaId);
+        if ($pedido != null) {
+            return $this->service
+            ->api
+            ->get('/pedidos?query=codigoPedido=' . $pedido);
+        }
     }
 }

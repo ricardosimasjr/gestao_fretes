@@ -13,11 +13,10 @@
             @include('layouts/nav')
         </div>
     </header>
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
             @yield('content')
         </div>
-        
     </div>
 </body>
 </html>

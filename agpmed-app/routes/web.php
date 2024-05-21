@@ -19,11 +19,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    
+
     //Home
 
     Route::get('/home', [HomeController::class, 'home'])->name('home');
-    
+
     //Transportadores
 
     Route::get('/transportadores', [TransportadorController::class, 'list'])->name('transportador.list');
@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     //Cotações
 
     Route::get('/cotacoes', [CotacaoController::class, 'list'])-> name('cotacoes.list');
-    Route::get('/cotacoes/create', [CotacaoController::class, 'create'])-> name('cotacoes.create');
+    Route::any('/cotacoes/create', [CotacaoController::class, 'create'])-> name('cotacoes.create');
 
 
 });
