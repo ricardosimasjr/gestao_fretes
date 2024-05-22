@@ -58,7 +58,16 @@ class PedidoController extends Controller
 
                 $nomePessoa = $clientePedido['razaoSocial'];
                 $ufPessoa = $clientePedido['uf'];
-                $grupoPessoa = $clientePedido['grupoPessoa'];
+
+                if(isset($clientePedido['grupoPessoa']))
+                {
+                    $grupoPessoa = $clientePedido['grupoPessoa'];
+                }
+                else
+                {
+                    $grupoPessoa = '';
+                }
+
 
                 if (isset($clientePedido['cnpj'])) {
                     $cpf_cnpj = $clientePedido['cnpj'];
@@ -130,8 +139,10 @@ class PedidoController extends Controller
             return "Pedido Cadastrado com Sucesso!";
         } catch (\Throwable $th) {
             $erno = $th->getCode();
-            dump($erno);
-            if()
+            if($erno == "23000")
+            {
+                return "Pedido já cadastrado!";
+            }
 
         }
 

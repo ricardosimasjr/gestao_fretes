@@ -49,6 +49,14 @@
                 <label for="representantepedido" class="form-label">Representante</label>
                 <input type="text" class="form-control" id="representantepedido" name="representantepedido" value="@if (isset($representante)){{$representante}}@endif">
             </div>
+            <div class="col-4 mb-6">
+                <label for="volumes" class="form-label">Volumes</label>
+                <input type="text" class="form-control" id="volumes" name="volumes" value="">
+            </div>
+            <div class="col-4 mb-6">
+                <label for="peso" class="form-label">Peso</label>
+                <input type="text" class="form-control" id="peso" name="peso" value="">
+            </div>
         </div>
 
         <div class="mb-3">
