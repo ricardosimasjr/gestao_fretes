@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-2 mb-3">
                 <label for="pedido" class="form-label">Pedido</label>
-                <input type="text" class="form-control" id="pedido" name="pedido" value="">
+                <input type="text" class="form-control" id="pedido" name="pedido" value="@if (isset($codigoPedido)){{$codigoPedido}}@endif">
             </div>
             <div class="col-2 mb-3">
                 <label for="cpf_cnpj" class="form-label">Cpf/Cnpj</label>
@@ -33,7 +33,7 @@
             </div>
             <div class="col-2 mb-3">
                 <label for="dataPedido" class="form-label">Data Pedido</label>
-                <input type="date" class="form-control" id="dataPedido" name="dataPedido" value="">
+                <input type="text" class="form-control" id="dataPedido" name="dataPedido" value="{{ \Carbon\Carbon::parse($dataEmissao)->format('d-m-Y')}}">
             </div>
         </div>
 

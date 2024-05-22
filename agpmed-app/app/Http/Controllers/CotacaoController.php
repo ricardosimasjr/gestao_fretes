@@ -22,33 +22,45 @@ class CotacaoController extends Controller
     {
         $pedido = $request->request->filter('pedido');
 
-        if($pedido != null)
-        {
-            $service = new ErpNomusService();
-            $return = $service
-            ->pedidos()
-            ->get($pedido);
-            $pedido = $return->json();
-            if($pedido != null)
-            {
-                $pedidoNomus = $pedido[0];
+
+
+        if ($pedido == '') {
+            return view('cotacoes.create');
+        } else {
+            //GET Pedido de Vendas - API Nomus
+
+            $servicePedidos = new ErpNomusService();
+            $return = $servicePedidos
+                ->pedidos()
+                ->get($pedido);
+            $json = $return->json();
+
+            if (isset($json[0])) {
+                $dadosPedido = $json[0];
+                $codigoPedido = $json[0]['codigoPedido'];
+                $dataEmissao = $json[0]['dataEmissao'];
+                $idPessoaCliente = $json[0]['idPessoaCliente'];
+                $idPessoaVendedor = $json[0]['idPessoaVendedor'];
+
+                return view('cotacoes.create', [
+                    'codigoPedido' => $codigoPedido,
+                    'dataEmissao' => $dataEmissao,
+                    'idPessoaCliente' => $idPessoaCliente,
+                    'idPessoaVendedor' => $idPessoaVendedor,
+                
+                ]);
             }
             else
             {
-                $pedidoNomus = null;
+                return view('cotacoes.create');
             }
 
-        }
-
-        if($pedidoNomus != null)
-        {
-            return view('cotacoes.create', ['pedido' => $pedido]);
-        }
-        else
-        {
-            return view('cotacoes.create');
-        }
 
 
+
+            //-----------------------------------------------------
+
+
+        }
     }
 }
