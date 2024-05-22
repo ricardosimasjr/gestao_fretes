@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransportadorController;
 use App\Http\Controllers\CotacaoController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PedidoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -38,6 +39,16 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/cotacoes', [CotacaoController::class, 'list'])-> name('cotacoes.list');
     Route::any('/cotacoes/create', [CotacaoController::class, 'create'])-> name('cotacoes.create');
+
+    //Pedidos
+
+    Route::get('/pedidos', [PedidoController::class, 'list'])-> name('pedidos.list');
+    Route::any('/pedidos/create', [PedidoController::class, 'create'])-> name('pedidos.create');
+    Route::post('/pedidos/store', [PedidoController::class, 'store'])-> name('pedidos.store');
+    Route::get('/pedidos/show', [PedidoController::class, 'show'])-> name('pedidos.show');
+    Route::get('/pedidos/edit', [PedidoController::class, 'edit'])-> name('pedidos.edit');
+    Route::put('/pedidos/update', [PedidoController::class, 'update'])-> name('pedidos.update');
+    Route::delete('/pedidos/destroy', [PedidoController::class, 'destroy'])-> name('pedidos.destroy');
 
 
 });

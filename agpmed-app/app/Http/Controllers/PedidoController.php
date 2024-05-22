@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Transportador;
-use App\Models\Cotacao;
-use App\Models\User;
+use App\Models\Pedido;
 use App\Services\ErpNomus\ErpNomusService;
+use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
-class CotacaoController extends Controller
+class PedidoController extends Controller
 {
     public function list(Request $request)
     {
-        $cotacoes = Cotacao::with('transportador')->get();
-        $transportadores = Transportador::get();
-
-        return view('cotacoes.list', ['cotacoes' => $cotacoes, 'transportadores' => $transportadores]);
+        echo "...";
     }
 
     public function create(Request $request)
@@ -92,7 +89,7 @@ class CotacaoController extends Controller
                         ->get($idPessoaRepresentante);
                     $representantePedido = $return->json();
                     $representante = $representantePedido['nome'];
-                }else{
+                } else {
                     $representante = '';
                 }
 
@@ -101,7 +98,7 @@ class CotacaoController extends Controller
 
                 # Retorno da Função
 
-                return view('cotacoes.create', [
+                return view('pedidos.create', [
                     'codigoPedido' => $codigoPedido,
                     'dataPedido' => $dataPedido,
                     'idPessoaCliente' => $idPessoaCliente,
@@ -115,7 +112,7 @@ class CotacaoController extends Controller
                 ]);
             } else # Caso o Request tenha um retorno nulo
             {
-                return view('cotacoes.create');
+                return view('pedidos.create');
             }
 
 
@@ -125,8 +122,22 @@ class CotacaoController extends Controller
         }
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        try {
+            $pedido = Pedido::create($request->all());
+            $pedido->save();
+            return "Pedido Cadastrado com Sucesso!";
+        } catch (\Throwable $th) {
+            $erno = $th->getCode();
+            dump($erno);
+            if()
+
+        }
+
+
+
+
 
     }
 }
