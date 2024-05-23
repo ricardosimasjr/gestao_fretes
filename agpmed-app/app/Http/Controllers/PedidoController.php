@@ -47,7 +47,6 @@ class PedidoController extends Controller
                 $dateFormat = \DateTime::createFromFormat('d/m/Y', $dataEmissao);
                 $dataPedido = $dateFormat->format('Y-m-d');
 
-
                 # -------------------------------------------------------------------------------
 
                 #Informações do Cliente
@@ -116,7 +115,6 @@ class PedidoController extends Controller
                     'ufPessoa' => $ufPessoa,
                     'vendedor' => $vendedor,
                     'representante' => $representante,
-
                 ]);
             } else # Caso o Request tenha um retorno nulo
             {
@@ -132,18 +130,27 @@ class PedidoController extends Controller
 
     public function store(Request $request)
     {
-        dump($request);
+        $peso = $request->request->get('peso');
+        $pesoBruto = str_replace(',','.', $peso);
+        $cubagem = $request->request->get('cubagem');
+        $volumeCubado = str_replace(',','.',$cubagem);
+
+
+        $request->request->set('peso', $pesoBruto);
+        $request->request->set('cubagem', $volumeCubado);
+
         try {
             $pedido = Pedido::create($request->all());
-
             $pedido->save();
             return "Pedido Cadastrado com Sucesso!";
         } catch (\Throwable $th) {
-            dump($th);
+            
+            var_dump($th);
             $erno = $th->getCode();
 
             if($erno == "23000")
             {
+                
                 return "Pedido já cadastrado!". $th;
             }
 

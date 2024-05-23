@@ -18,12 +18,12 @@ return new class extends Migration
             $table->string('nomecliente');
             $table->string('ufcliente');
             $table->string('vendedorpedido');
-            $table->string('representantepedido')
-            ->nullable()
-            ->default(null);
+            $table->string('representantepedido')->nullable();
             $table->date('datapedido');
-
-
+            $table->integer('volumes')->nullable();
+            $table->float('peso', precision: 3)->nullable();
+            $table->float('cubagem', precision: 3)->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
