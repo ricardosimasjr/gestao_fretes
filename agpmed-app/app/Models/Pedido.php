@@ -19,5 +19,8 @@ class Pedido extends Model
         'datapedido',
         'vendedorpedido',
         'representantepedido',
+        'volumes',
+        'peso',
+        'cubagem',
     ];
 }
