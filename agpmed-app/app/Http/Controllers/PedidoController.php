@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pedido;
 use App\Services\ErpNomus\ErpNomusService;
 use Illuminate\Http\Request;
+use LaraDumps\LaraDumps\Livewire\Attributes\Ds;
 use PhpParser\Node\Stmt\TryCatch;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
@@ -22,7 +23,7 @@ class PedidoController extends Controller
 
 
         if ($pedido == '') {
-            return view('cotacoes.create');
+            return view('pedidos.create');
         } else {
             //GET Pedido de Vendas - API Nomus
 
@@ -45,6 +46,7 @@ class PedidoController extends Controller
                 $idPessoaVendedor = $json[0]['idPessoaVendedor'];
                 $dateFormat = \DateTime::createFromFormat('d/m/Y', $dataEmissao);
                 $dataPedido = $dateFormat->format('Y-m-d');
+
 
                 # -------------------------------------------------------------------------------
 
@@ -102,9 +104,6 @@ class PedidoController extends Controller
                     $representante = '';
                 }
 
-                dump($representante);
-
-
                 # Retorno da Função
 
                 return view('pedidos.create', [
@@ -133,15 +132,19 @@ class PedidoController extends Controller
 
     public function store(Request $request)
     {
+        dump($request);
         try {
             $pedido = Pedido::create($request->all());
+
             $pedido->save();
             return "Pedido Cadastrado com Sucesso!";
         } catch (\Throwable $th) {
+            dump($th);
             $erno = $th->getCode();
+
             if($erno == "23000")
             {
-                return "Pedido já cadastrado!";
+                return "Pedido já cadastrado!". $th;
             }
 
         }

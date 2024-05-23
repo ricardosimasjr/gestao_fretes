@@ -1,7 +1,7 @@
 @extends('layouts/base')
 
 @section('title')
-    Nova Cotação
+    Novo pedido
 @endsection
 
 @section('content')
@@ -44,7 +44,7 @@
             <div class="col-2 mb-3">
                 <label for="datapedido" class="form-label">Data Pedido</label>
                 <input type="date" class="form-control" id="datapedido" name="datapedido"
-                    value="@if (isset($dataPedido)) {{ $dataPedido }} @endif">
+                    value="@if (isset($dataPedido)){{$dataPedido}}@endif">
             </div>
             <div class="col-4 mb-6">
                 <label for="vendedorpedido" class="form-label">Vendedor</label>
