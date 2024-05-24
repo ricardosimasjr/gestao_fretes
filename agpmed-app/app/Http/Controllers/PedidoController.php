@@ -16,14 +16,13 @@ class PedidoController extends Controller
     public function list()
     {
        $pedidos = Pedido::get();
+       Ds($pedidos);
        return view('pedidos.list', ['pedidos' => $pedidos]);
     }
 
     public function create(Request $request)
     {
         $pedido = $request->request->filter('pedido');
-
-
 
         if ($pedido == '') {
             return view('pedidos.create');
@@ -147,13 +146,13 @@ class PedidoController extends Controller
             $pedido->save();
             return "Pedido Cadastrado com Sucesso!";
         } catch (\Throwable $th) {
-            
+
             var_dump($th);
             $erno = $th->getCode();
 
             if($erno == "23000")
             {
-                
+
                 return "Pedido já cadastrado!". $th;
             }
 

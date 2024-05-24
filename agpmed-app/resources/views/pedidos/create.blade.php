@@ -71,7 +71,7 @@
                 <label class="form-label" for="cubagem">Cubagem</label>
                 <div class="input-group">
                     <input type="text" class="form-control" id="cubagem" name="cubagem">
-                    <div class="input-group-text">cm<sup>3</sup></div>
+                    <div class="input-group-text">M<sup>3</sup></div>
                 </div>
             </div>
         </div>
