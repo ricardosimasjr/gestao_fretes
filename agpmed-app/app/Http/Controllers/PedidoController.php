@@ -9,11 +9,14 @@ use LaraDumps\LaraDumps\Livewire\Attributes\Ds;
 use PhpParser\Node\Stmt\TryCatch;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
+use function Pest\Laravel\get;
+
 class PedidoController extends Controller
 {
-    public function list(Request $request)
+    public function list()
     {
-        echo "...";
+       $pedidos = Pedido::get();
+       return view('pedidos.list', ['pedidos' => $pedidos]);
     }
 
     public function create(Request $request)
