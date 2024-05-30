@@ -11,7 +11,7 @@
                 <h3>Pedido de Venda</h3>
             </div>
             <div class="col-6 text-end">
-                <a class="btn btn-success" href="{{route('pedidos.create')}}">Novo Pedido</a>
+                <a class="btn btn-success" href="{{ route('pedidos.create') }}">Novo Pedido</a>
             </div>
         </div>
     </div>
@@ -33,7 +33,7 @@
                                         {{ $pedido->ufcliente }}
                                     </div>
                                     <div class="col-4 text-end">
-                                        <span class="badge text-bg-primary rounded-pill">{{$pedido->id}}</span>
+                                        <span class="badge text-bg-primary rounded-pill">{{ $pedido->id }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -49,28 +49,36 @@
                                         Vendedor
                                     </div>
                                     <div class="card-body">
-                                        <h5 class="card-title">{{ $pedido->vendedorpedido }}</h5>
+                                        <h5 class="card-title text-center">{{ $pedido->vendedorpedido }}</h5>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 mb-3">
-                                <div class="col-4 mb-3">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            Data do Pedido
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h5 class="card-title">{{ $pedido->datapedido }}</h5>
-                                        </div>
+                            <div class="col-4 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Representante
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">@if ($pedido->representantepedido == null)
+                                            -
+                                        @else
+                                            {{$pedido->representantepedido}}
+                                        @endif</h5>
                                     </div>
                                 </div>
-
+                            </div>
+                            <div class="col-3 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Data do Pedido
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">{{ $pedido->datapedido }}</h5>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6 mb-3">
-                                {{ $pedido->ufcliente }}
-                            </div>
                             <div class="col-6 mb-3">
                                 <div class="col-4 mb-3">
                                     <div class="card">
