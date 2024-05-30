@@ -3,6 +3,7 @@
 namespace App\Services\ErpNomus;
 
 use App\Services\ErpNomus\Endpoints\HasClientes;
+use App\Services\ErpNomus\Endpoints\HasNotas;
 use App\Services\ErpNomus\Endpoints\HasPedidos;
 use App\Services\ErpNomus\Endpoints\HasPessoas;
 use Illuminate\Http\Client\PendingRequest;
@@ -13,6 +14,7 @@ class ErpNomusService
     use HasClientes;
     use HasPedidos;
     use HasPessoas;
+    use HasNotas;
 
     public PendingRequest $api;
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransportadorController;
 use App\Http\Controllers\CotacaoController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotaController;
 use App\Http\Controllers\PedidoController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +51,15 @@ Route::middleware('auth')->group(function () {
     Route::put('/pedidos/update', [PedidoController::class, 'update'])-> name('pedidos.update');
     Route::delete('/pedidos/destroy', [PedidoController::class, 'destroy'])-> name('pedidos.destroy');
 
+    //Notas
+
+    Route::get('/notas', [NotaController::class, 'list'])-> name('notas.list');
+    Route::any('/notas/create', [NotaController::class, 'create'])-> name('notas.create');
+    Route::post('/notas/store', [NotaController::class, 'store'])-> name('notas.store');
+    Route::get('/notas/show', [NotaController::class, 'show'])-> name('notas.show');
+    Route::get('/notas/edit', [NotaController::class, 'edit'])-> name('notas.edit');
+    Route::put('/notas/update', [NotaController::class, 'update'])-> name('notas.update');
+    Route::delete('/notas/destroy', [NotaController::class, 'destroy'])-> name('notas.destroy');
 
 });
 
