@@ -23,107 +23,79 @@ class NotaController extends Controller
         if ($nota == '') {
             return view('notas.create');
         } else {
-            
+
             //GET Notas - API Nomus
 
             $serviceNotas = new ErpNomusService();
             $return = $serviceNotas
-                ->pedidos()
+                ->notas()
                 ->get($nota);
             $json = $return->json();
 
-            dd($json);
 
-           /*  if (isset($json[0]))  # Caso o Request tenha um retorno válido
-            {
-                # Informações do Pedido
+            $xml = simplexml_load_string($json[0]['xml']);
 
-                $dadosPedido = $json[0];
-                $codigoPedido = $json[0]['codigoPedido'];
-                $dataEmissao = $json[0]['dataEmissao'];
-                $idPessoaCliente = $json[0]['idPessoaCliente'];
-                $idPessoaVendedor = $json[0]['idPessoaVendedor'];
-                $dateFormat = \DateTime::createFromFormat('d/m/Y', $dataEmissao);
-                $dataPedido = $dateFormat->format('Y-m-d');
 
-                # -------------------------------------------------------------------------------
+            //Dados da NF-e
 
+            $nNF = $xml->NFe->infNFe->ide->nNF;
+            $dhEmi = $xml->NFe->infNFe->ide->dhEmi;
+            $tpFrete = $xml->NFe->infNFe->transp->modFrete;
+            $transportadora = $xml->NFe->infNFe->transp->transporta->xNome;
+            $qVol = $xml->NFe->infNFe->transp->vol->qVol;
+            $pesoB = $xml->NFe->infNFe->transp->vol->pesoB;
+            $vTotal = $xml->NFe->infNFe->total->ICMSTot->vNF;
+
+    
+
+            //Dados do Cliente
+
+            if (isset($xml->NFe->infNFe->dest->CNPJ)) {
+                $cnpj = $xml->NFe->infNFe->dest->CNPJ;
+                $cpfPontuado = preg_replace('/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/', '$1.$2.$3/$4-$5', $cnpj);
+                $cpfCnpj = $cpfPontuado;
+            } else {
+                $cpf = $xml->NFe->infNFe->dest->CPF;
+                $cpfPontuado = preg_replace('/(\d{3})(\d{3})(\d{3})(\d{2})/', '$1.$2.$3-$4', $cpf);
+                $cpfCnpj = $cpfPontuado;
+            }
+
+            $razaoSocial = $xml->NFe->infNFe->dest->nNome;
+            $uf = $xml->NFe->infNFe->dest->enderDest->UF;
+            $municipio = $xml->NFe->infNFe->dest->enderDest->xMun;
+
+            if (strlen($cpfCnpj) == 14) {
                 #Informações do Cliente
-
                 $serviceClientes = new ErpNomusService();
                 $return = $serviceClientes
                     ->clientes()
-                    ->get($idPessoaCliente);
-                $clientePedido = $return->json();
-
-                $nomePessoa = $clientePedido['razaoSocial'];
-                $ufPessoa = $clientePedido['uf'];
-
-                if(isset($clientePedido['grupoPessoa']))
-                {
-                    $grupoPessoa = $clientePedido['grupoPessoa'];
-                }
-                else
-                {
-                    $grupoPessoa = '';
-                }
-
-
-                if (isset($clientePedido['cnpj'])) {
-                    $cpf_cnpj = $clientePedido['cnpj'];
-                } else {
-                    $cpf_cnpj = $clientePedido['cpf'];
-                }
-
-                # -------------------------------------------------------------------------------
-
-                # Informações do Vendedor
-
-                $serviceVendedor = new ErpNomusService();
-                $return = $serviceVendedor
-                    ->pessoas()
-                    ->get($idPessoaVendedor);
-                $vendedorPedido = $return->json();
-
-                $vendedor = $vendedorPedido['nome'];
-
-                # Informações do Representante
-
-
-                if (isset($dadosPedido['idPessoaRepresentante'])) {
-                    $idPessoaRepresentante = $dadosPedido['idPessoaRepresentante'];
-                    $serviceRepresentante = new ErpNomusService();
-                    $return = $serviceRepresentante
-                        ->pessoas()
-                        ->get($idPessoaRepresentante);
-                    $representantePedido = $return->json();
-                    $representante = $representantePedido['nome'];
-                } else {
-                    $representante = '';
-                }
-
-                # Retorno da Função
-
-                return view('pedidos.create', [
-                    'codigoPedido' => $codigoPedido,
-                    'dataPedido' => $dataPedido,
-                    'idPessoaCliente' => $idPessoaCliente,
-                    'idPessoaVendedor' => $idPessoaVendedor,
-                    'nomePessoa' => $nomePessoa,
-                    'cpf_cnpj' => $cpf_cnpj,
-                    'ufPessoa' => $ufPessoa,
-                    'vendedor' => $vendedor,
-                    'representante' => $representante,
-                ]);
-            } else # Caso o Request tenha um retorno nulo
-            {
-                return view('pedidos.create');
+                    ->getCpf($cpfCnpj);
+                $clienteNota = $return->json();
+            } else {
+                $serviceClientes = new ErpNomusService();
+                $return = $serviceClientes
+                    ->clientes()
+                    ->getCnpj($cpfCnpj);
+                $clienteNota = $return->json();
             }
- */
 
-            //-----------------------------------------------------
+            $cliente = $clienteNota[0]['representantes'];
 
+            ds($cliente);
 
         }
+
+        return view('notas.create', [
+            'nota' => $nNF,
+            'emissao' => $dhEmi,
+            'cpfcnpj' => $cpfCnpj,
+            'razaosocial' => $razaoSocial,
+            'municipio' => $municipio,
+            'uf' => $uf,
+            'volumes' => $qVol,
+            'peso' => $pesoB,
+
+        ]);
+
     }
 }

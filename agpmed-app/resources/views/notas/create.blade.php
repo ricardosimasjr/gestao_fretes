@@ -5,10 +5,10 @@
 @endsection
 
 @section('content')
-    <form class="row row-cols-lg-auto g-3 align-items-center mb-4" action="" method="POST">
+    <form class="row row-cols-lg-auto g-3 align-items-center mb-4" style="background-color: antiquewhite" action="" method="POST">
         @csrf
         <div class="col-md-6">
-            <input type="text" class="form-control" id="nota" name="nota" placeholder="Pedido de Venda">
+            <input type="text" class="form-control" id="nota" name="nota" placeholder="NF-e">
         </div>
         <div class="col-12">
             <button type="submit" class="btn btn-success" id="search" name="search">Buscar</button>
@@ -16,13 +16,12 @@
     </form>
 
 
-    <form action="{{ route('pedidos.store') }}" method="post">
+    <form action="" method="post">
         @csrf
         <div class="row">
             <div class="col-2 mb-3">
-                <label for="codigopedido" class="form-label">Pedido</label>
-                <input type="text" class="form-control" id="codigopedido" name="codigopedido"
-                    value="@if (isset($codigoPedido)) {{ $codigoPedido }} @endif">
+                <label for="nota" class="form-label">NF-e</label>
+                <input type="text" class="form-control" id="nota" name="nota" value="">
             </div>
             <div class="col-3 mb-3">
                 <label for="cpfcnpj" class="form-label">Cpf/Cnpj</label>
