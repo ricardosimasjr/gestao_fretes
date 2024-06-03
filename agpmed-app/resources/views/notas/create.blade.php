@@ -5,7 +5,8 @@
 @endsection
 
 @section('content')
-    <form class="row row-cols-lg-auto g-3 align-items-center mb-4" style="background-color: antiquewhite" action="" method="POST">
+    <form class="row row-cols-lg-auto g-3 align-items-center mb-4" style="background-color: antiquewhite" action=""
+        method="POST">
         @csrf
         <div class="col-md-6">
             <input type="text" class="form-control" id="nota" name="nota" placeholder="NF-e">
@@ -15,40 +16,40 @@
         </div>
     </form>
 
-
     <form action="" method="post">
         @csrf
         <div class="row">
             <div class="col-2 mb-3">
                 <label for="nota" class="form-label">NF-e</label>
-                <input type="text" class="form-control" id="nota" name="nota" value="">
+                <input type="text" class="form-control" id="nota" name="nota"
+                    value="@if (isset($nota)) {{ $nota }} @endif">
             </div>
             <div class="col-3 mb-3">
                 <label for="cpfcnpj" class="form-label">Cpf/Cnpj</label>
                 <input type="text" class="form-control" id="cpfcnpj" name="cpfcnpj"
-                    value="@if (isset($cpf_cnpj)) {{ $cpf_cnpj }} @endif">
+                    value="@if (isset($cpfcnpj)) {{ $cpfcnpj }} @endif">
             </div>
             <div class="col-6 mb-3">
                 <label for="nomecliente" class="form-label">Cliente</label>
                 <input type="text" class="form-control" id="nomecliente" name="nomecliente"
-                    value="@if (isset($nomePessoa)) {{ $nomePessoa }} @endif">
+                    value="@if (isset($razaosocial)) {{ $razaosocial }} @endif">
             </div>
             <div class="col-1 mb-3">
                 <label for="ufcliente" class="form-label">UF</label>
                 <input type="text" class="form-control" id="ufcliente" name="ufcliente"
-                    value="@if (isset($ufPessoa)) {{ $ufPessoa }} @endif">
+                    value="@if (isset($uf)) {{ $uf }} @endif">
             </div>
         </div>
         <div class="row">
             <div class="col-2 mb-3">
-                <label for="datapedido" class="form-label">Data Pedido</label>
-                <input type="date" class="form-control" id="datapedido" name="datapedido"
-                    value="@if (isset($dataPedido)){{$dataPedido}}@endif">
+                <label for="emissao" class="form-label">Emissão Nota</label>
+                <input type="date" class="form-control" id="emissao" name="emissao"
+                    value="@if (isset($emissao)){{$emissao}}@endif">
             </div>
             <div class="col-4 mb-6">
                 <label for="vendedorpedido" class="form-label">Vendedor</label>
                 <input type="text" class="form-control" id="vendedorpedido" name="vendedorpedido"
-                    value="@if (isset($vendedor)) {{ $vendedor }} @endif">
+                    value="@if (isset($vendedor)) {{$vendedor}} @endif">
             </div>
             <div class="col-4 mb-6">
                 <label for="representantepedido" class="form-label">Representante</label>
@@ -57,20 +58,29 @@
             </div>
             <div class="col-2 mb-6">
                 <label for="volumes" class="form-label">Volumes</label>
-                <input type="number" class="form-control" id="volumes" name="volumes" value="">
+                <input type="text" class="form-control" id="volumes" name="volumes"
+                    value="@if (isset($volumes)) {{ $volumes }} @endif">
             </div>
             <div class="col-2">
                 <label class="form-label" for="peso">Peso</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="peso" name="peso">
+                    <input type="text" class="form-control" id="peso" name="peso"
+                        value="@if (isset($peso)) {{ $peso }} @endif">
                     <div class="input-group-text">Kg</div>
                 </div>
             </div>
             <div class="col-2">
-                <label class="form-label" for="cubagem">Cubagem</label>
+                <label class="form-label" for="vFrete">Valor Frete</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="cubagem" name="cubagem">
-                    <div class="input-group-text">cm<sup>3</sup></div>
+                    <div class="input-group-text">R$</div>
+                    <input type="text" class="form-control" id="vFrete" name="vFrete" onKeyPress="return(moeda(this,'.',',',event))" value="@if(isset($valorfrete)){{ $valorfrete }}@endif">
+                </div>
+            </div>
+            <div class="col-2">
+                <label class="form-label" for="vNota">Valor Nota</label>
+                <div class="input-group">
+                    <div class="input-group-text">R$</div>
+                    <input type="text" class="form-control" id="vNota" name="vNota" value="@if(isset($valornota)){{ $valornota}}@endif">
                 </div>
             </div>
         </div>
@@ -85,8 +95,9 @@
         function id(el) {
             return document.getElementById(el);
         }
-        window.onload = function () {
-            id('peso').onkeyup = function () {
+
+        window.onload = function() {
+            id('peso').onkeyup = function() {
                 var v = this.value,
                     integer = v.split(',')[0];
 
@@ -105,5 +116,44 @@
                 this.value = v;
             }
         };
+    </script>
+    <script language = "javascript">
+            function moeda(a, e, r, t) {
+                let n = "",
+                    h = j = 0,
+                    u = tamanho2 = 0,
+                    l = ajd2 = "",
+                    o = window.Event ? t.which : t.keyCode;
+                if (13 == o || 8 == o)
+                    return !0;
+                if (n = String.fromCharCode(o),
+                    -1 == "0123456789".indexOf(n))
+                    return !1;
+                for (u = a.value.length,
+                    h = 0; h < u && ("0" == a.value.charAt(h) || a.value.charAt(h) == r); h++)
+                ;
+                for (l = ""; h < u; h++)
+                    -
+                    1 != "0123456789".indexOf(a.value.charAt(h)) && (l += a.value.charAt(h));
+                if (l += n,
+                    0 == (u = l.length) && (a.value = ""),
+                    1 == u && (a.value = "0" + r + "0" + l),
+                    2 == u && (a.value = "0" + r + l),
+                    u > 2) {
+                    for (ajd2 = "",
+                        j = 0,
+                        h = u - 3; h >= 0; h--)
+                        3 == j && (ajd2 += e,
+                            j = 0),
+                        ajd2 += l.charAt(h),
+                        j++;
+                    for (a.value = "",
+                        tamanho2 = ajd2.length,
+                        h = tamanho2 - 1; h >= 0; h--)
+                        a.value += ajd2.charAt(h);
+                    a.value += r + l.substr(u - 2, u)
+                }
+                return !1
+            }
     </script>
 @endsection

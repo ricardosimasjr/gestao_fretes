@@ -11,7 +11,7 @@ class NotaController extends Controller
     public function list()
     {
         $pedidos = Pedido::get();
-        return view('pedidos.list', ['pedidos' => $pedidos]);
+        return view('notas.list', ['pedidos' => $pedidos]);
     }
 
     public function create(Request $request)
@@ -32,21 +32,26 @@ class NotaController extends Controller
                 ->get($nota);
             $json = $return->json();
 
-
             $xml = simplexml_load_string($json[0]['xml']);
 
-
+            ds($xml);
             //Dados da NF-e
 
+            $usuarioNota = $json[0]['usuario'];
             $nNF = $xml->NFe->infNFe->ide->nNF;
-            $dhEmi = $xml->NFe->infNFe->ide->dhEmi;
+            $dhEmi = $json[0]['dataProcessamento'];
+            $dateFormat = \DateTime::createFromFormat('d/m/Y', $dhEmi);
+            $emissao = $dateFormat->format('Y-m-d');
             $tpFrete = $xml->NFe->infNFe->transp->modFrete;
             $transportadora = $xml->NFe->infNFe->transp->transporta->xNome;
             $qVol = $xml->NFe->infNFe->transp->vol->qVol;
             $pesoB = $xml->NFe->infNFe->transp->vol->pesoB;
             $vTotal = $xml->NFe->infNFe->total->ICMSTot->vNF;
+            $vTotalFrete = $xml->NFe->infNFe->total->ICMSTot->vFrete;
 
-    
+            dump($emissao);
+
+
 
             //Dados do Cliente
 
@@ -60,9 +65,10 @@ class NotaController extends Controller
                 $cpfCnpj = $cpfPontuado;
             }
 
-            $razaoSocial = $xml->NFe->infNFe->dest->nNome;
+            $razaoSocial = $xml->NFe->infNFe->dest->xNome;
             $uf = $xml->NFe->infNFe->dest->enderDest->UF;
             $municipio = $xml->NFe->infNFe->dest->enderDest->xMun;
+
 
             if (strlen($cpfCnpj) == 14) {
                 #Informações do Cliente
@@ -79,23 +85,31 @@ class NotaController extends Controller
                 $clienteNota = $return->json();
             }
 
-            $cliente = $clienteNota[0]['representantes'];
-
-            ds($cliente);
-
+            // Informaçoes  do representante
+            if(isset($clienteNota[0]['representantes'])){
+                $representante = $clienteNota[0]['representantes'];
+                $representanteObj = $representante[0]['nome'];
+            }
+            else
+            {
+                $representanteObj = "-";
+            }
         }
 
         return view('notas.create', [
             'nota' => $nNF,
-            'emissao' => $dhEmi,
+            'emissao' => $emissao,
             'cpfcnpj' => $cpfCnpj,
             'razaosocial' => $razaoSocial,
             'municipio' => $municipio,
             'uf' => $uf,
+            'representante' => $representanteObj,
             'volumes' => $qVol,
             'peso' => $pesoB,
-
+            'vendedor' => $usuarioNota,
+            'valornota' => $vTotal,
+            'valorfrete' => $vTotalFrete,
+            'modfrete' => $tpFrete,
         ]);
-
     }
 }
