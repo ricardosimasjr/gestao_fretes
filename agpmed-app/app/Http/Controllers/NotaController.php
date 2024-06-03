@@ -49,10 +49,6 @@ class NotaController extends Controller
             $vTotal = $xml->NFe->infNFe->total->ICMSTot->vNF;
             $vTotalFrete = $xml->NFe->infNFe->total->ICMSTot->vFrete;
 
-            dump($emissao);
-
-
-
             //Dados do Cliente
 
             if (isset($xml->NFe->infNFe->dest->CNPJ)) {
