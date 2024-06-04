@@ -4,12 +4,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransportadorController;
 use App\Http\Controllers\CotacaoController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\PedidoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Route::get('/dashboard', function () {
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/transportadores/edit/{transportador}', [TransportadorController::class, 'edit'])->name('transportador.edit');
     Route::put('/transportadores/update/{transportador}', [TransportadorController::class, 'update'])->name('transportador.update');
     Route::delete('/transportadores/delete/{transportador}', [TransportadorController::class, 'destroy'])->name('transportador.destroy');
+
+    Route::any('/logoff', [LoginController::class, 'logout'])->name('user.logout');
 
     //Cotações
 
