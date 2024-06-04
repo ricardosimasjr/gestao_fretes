@@ -16,12 +16,12 @@
         </div>
     </form>
 
-    <form action="" method="post">
+    <form action="{{ route('notas.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-2 mb-3">
-                <label for="nota" class="form-label">NF-e</label>
-                <input type="text" class="form-control" id="nota" name="nota"
+                <label for="nfe" class="form-label">NF-e</label>
+                <input type="text" class="form-control" id="nfe" name="nfe"
                     value="@if (isset($nota)) {{ $nota }} @endif">
             </div>
             <div class="col-3 mb-3">
@@ -30,8 +30,8 @@
                     value="@if (isset($cpfcnpj)) {{ $cpfcnpj }} @endif">
             </div>
             <div class="col-6 mb-3">
-                <label for="nomecliente" class="form-label">Cliente</label>
-                <input type="text" class="form-control" id="nomecliente" name="nomecliente"
+                <label for="razaosocial" class="form-label">Cliente</label>
+                <input type="text" class="form-control" id="razaosocial" name="razaosocial"
                     value="@if (isset($razaosocial)) {{ $razaosocial }} @endif">
             </div>
             <div class="col-1 mb-3">
@@ -44,16 +44,16 @@
             <div class="col-2 mb-3">
                 <label for="emissao" class="form-label">Emissão Nota</label>
                 <input type="date" class="form-control" id="emissao" name="emissao"
-                    value="@if (isset($emissao)){{$emissao}}@endif">
+                    value="@if(isset($emissao)){{$emissao }}@endif">
             </div>
             <div class="col-4 mb-6">
-                <label for="vendedorpedido" class="form-label">Vendedor</label>
-                <input type="text" class="form-control" id="vendedorpedido" name="vendedorpedido"
-                    value="@if (isset($vendedor)) {{$vendedor}} @endif">
+                <label for="vendedor" class="form-label">Vendedor</label>
+                <input type="text" class="form-control" id="vendedor" name="vendedor"
+                    value="@if (isset($vendedor)) {{ $vendedor }} @endif">
             </div>
             <div class="col-4 mb-6">
-                <label for="representantepedido" class="form-label">Representante</label>
-                <input type="text" class="form-control" id="representantepedido" name="representantepedido"
+                <label for="representante" class="form-label">Representante</label>
+                <input type="text" class="form-control" id="representante" name="representante"
                     value="@if (isset($representante)) {{ $representante }} @endif">
             </div>
             <div class="col-2 mb-6">
@@ -70,19 +70,29 @@
                 </div>
             </div>
             <div class="col-2">
-                <label class="form-label" for="vFrete">Valor Frete</label>
+                <label class="form-label" for="vfrete">Valor Frete</label>
                 <div class="input-group">
                     <div class="input-group-text">R$</div>
-                    <input type="text" class="form-control" id="vFrete" name="vFrete" onKeyPress="return(moeda(this,'.',',',event))" value="@if(isset($valorfrete)){{ $valorfrete }}@endif">
+                    <input type="text" class="form-control" id="vfrete" name="vfrete"
+                        onKeyPress="return(moeda(this,'.',',',event))"
+                        value="@if (isset($valorfrete)) {{ $valorfrete }} @endif">
                 </div>
             </div>
             <div class="col-2">
-                <label class="form-label" for="vNota">Valor Nota</label>
+                <label class="form-label" for="vnota">Valor Nota</label>
                 <div class="input-group">
                     <div class="input-group-text">R$</div>
-                    <input type="text" class="form-control" id="vNota" name="vNota" value="@if(isset($valornota)){{ $valornota}}@endif">
+                    <input type="text" class="form-control" id="vnota" name="vnota"
+                        value="@if (isset($valornota)) {{ $valornota }} @endif">
                 </div>
             </div>
+            <div class="col-6">
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="canhoto" name="canhoto">
+                    <label class="input-group-text form-label" for="canhoto">Upload</label>
+                </div>
+            </div>
+
         </div>
         <div class="row">
             <div class="mb-3 mt-3">
@@ -117,43 +127,43 @@
             }
         };
     </script>
-    <script language = "javascript">
-            function moeda(a, e, r, t) {
-                let n = "",
-                    h = j = 0,
-                    u = tamanho2 = 0,
-                    l = ajd2 = "",
-                    o = window.Event ? t.which : t.keyCode;
-                if (13 == o || 8 == o)
-                    return !0;
-                if (n = String.fromCharCode(o),
-                    -1 == "0123456789".indexOf(n))
-                    return !1;
-                for (u = a.value.length,
-                    h = 0; h < u && ("0" == a.value.charAt(h) || a.value.charAt(h) == r); h++)
-                ;
-                for (l = ""; h < u; h++)
-                    -
-                    1 != "0123456789".indexOf(a.value.charAt(h)) && (l += a.value.charAt(h));
-                if (l += n,
-                    0 == (u = l.length) && (a.value = ""),
-                    1 == u && (a.value = "0" + r + "0" + l),
-                    2 == u && (a.value = "0" + r + l),
-                    u > 2) {
-                    for (ajd2 = "",
-                        j = 0,
-                        h = u - 3; h >= 0; h--)
-                        3 == j && (ajd2 += e,
-                            j = 0),
-                        ajd2 += l.charAt(h),
-                        j++;
-                    for (a.value = "",
-                        tamanho2 = ajd2.length,
-                        h = tamanho2 - 1; h >= 0; h--)
-                        a.value += ajd2.charAt(h);
-                    a.value += r + l.substr(u - 2, u)
-                }
-                return !1
+    <script language="javascript">
+        function moeda(a, e, r, t) {
+            let n = "",
+                h = j = 0,
+                u = tamanho2 = 0,
+                l = ajd2 = "",
+                o = window.Event ? t.which : t.keyCode;
+            if (13 == o || 8 == o)
+                return !0;
+            if (n = String.fromCharCode(o),
+                -1 == "0123456789".indexOf(n))
+                return !1;
+            for (u = a.value.length,
+                h = 0; h < u && ("0" == a.value.charAt(h) || a.value.charAt(h) == r); h++)
+            ;
+            for (l = ""; h < u; h++)
+                -
+                1 != "0123456789".indexOf(a.value.charAt(h)) && (l += a.value.charAt(h));
+            if (l += n,
+                0 == (u = l.length) && (a.value = ""),
+                1 == u && (a.value = "0" + r + "0" + l),
+                2 == u && (a.value = "0" + r + l),
+                u > 2) {
+                for (ajd2 = "",
+                    j = 0,
+                    h = u - 3; h >= 0; h--)
+                    3 == j && (ajd2 += e,
+                        j = 0),
+                    ajd2 += l.charAt(h),
+                    j++;
+                for (a.value = "",
+                    tamanho2 = ajd2.length,
+                    h = tamanho2 - 1; h >= 0; h--)
+                    a.value += ajd2.charAt(h);
+                a.value += r + l.substr(u - 2, u)
             }
+            return !1
+        }
     </script>
 @endsection

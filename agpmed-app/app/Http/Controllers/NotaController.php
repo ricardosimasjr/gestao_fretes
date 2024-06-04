@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nota;
 use App\Models\Pedido;
+use App\Services\ErpNomus\Endpoints\Notas;
 use App\Services\ErpNomus\ErpNomusService;
 use Illuminate\Http\Request;
 
@@ -107,5 +109,32 @@ class NotaController extends Controller
             'valorfrete' => $vTotalFrete,
             'modfrete' => $tpFrete,
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        
+        $file = $request->canhoto;
+
+        $file->store('public/canhotos');
+        $hash = $file->hashName();
+
+        $nota = new Nota();
+        $nota->nfe = $request->nfe;
+        $nota->cpfcnpj = $request->cpfcnpj;
+        $nota->razaosocial = $request->razaosocial;
+        $nota->ufcliente = $request->ufcliente;
+        $nota->emissao = $request->emissao;
+        $nota->vendedor = $request->vendedor;
+        $nota->representante = $request->representante;
+        $nota->volumes = $request->volumes;
+        $nota->peso = $request->peso;
+        $nota->vfrete = $request->vfrete;
+        $nota->vnota = $request->vnota;
+        $nota->canhoto = $hash;
+
+        $nota->save();
+        dd($nota);
+
     }
 }
