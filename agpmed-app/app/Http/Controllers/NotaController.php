@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nota;
-use App\Models\Pedido;
 use App\Services\ErpNomus\Endpoints\Notas;
 use App\Services\ErpNomus\ErpNomusService;
 use Illuminate\Http\Request;
@@ -144,16 +143,36 @@ class NotaController extends Controller
         $nota->peso = $request->peso;
 
         $freteForm = $request->vfrete;
-        $vFreteFormat = str_replace(',', '.', $freteForm);
+        $vFreteFormat = str_replace([".", ","], ["", "."], $freteForm);
         $nota->vfrete = $vFreteFormat;
 
         $vNotaForm = $request->vnota;
         $vNotaFormat = str_replace([".", ","], ["", "."], $vNotaForm);
         $nota->vnota = $vNotaFormat;
         $nota->canhoto = $hash;
-        $nota->save();
 
-        return view('notas.list');
+        try {
+            $nota->save();
+            return redirect()->route('notas.list');
+        } catch (\Throwable $th) {
+
+            var_dump($th);
+            $erno = $th->getCode();
+
+            if($erno == "23000")
+            {
+
+                return "Nota já cadastrada!". $th;
+            }
+
+        }
+
+
+
+
+
+
+
 
     }
 }
