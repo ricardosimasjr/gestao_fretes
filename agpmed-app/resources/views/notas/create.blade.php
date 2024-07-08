@@ -61,6 +61,11 @@
                 <input type="text" class="form-control" id="volumes" name="volumes"
                     value="@if (isset($volumes)) {{ $volumes }} @endif">
             </div>
+            <div class="col-4 mb-6">
+                <label for="transportadora" class="form-label">Transportadora</label>
+                <input type="text" class="form-control" id="transportadora" name="transportadora"
+                    value="@if (isset($transportadora)) {{ $transportadora }} @endif">
+            </div>
             <div class="col-2">
                 <label class="form-label" for="peso">Peso</label>
                 <div class="input-group">
@@ -86,13 +91,6 @@
                         value="@if (isset($valornota)) {{ $valornota }} @endif">
                 </div>
             </div>
-            <div class="col-6">
-                <div class="input-group mb-3">
-                    <input type="file" class="form-control" id="canhoto" name="canhoto">
-                    <label class="input-group-text form-label" for="canhoto">Upload</label>
-                </div>
-            </div>
-
         </div>
         <div class="row">
             <div class="mb-3 mt-3">
