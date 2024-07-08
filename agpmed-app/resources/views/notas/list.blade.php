@@ -27,8 +27,58 @@
                     </button>
                 </h2>
                 <div id="flush-collapse{{ $nfe->id }}" class="accordion-collapse collapse" data-bs-parent="pedidoList">
-                    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
-                        <code>.accordion-flush</code> class. This is the first item's accordion body.
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-4 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Vendedor
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">{{$nfe->vendedor}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Representante
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">@if ($nfe->representante == null)
+                                            -
+                                        @else
+                                            {{$nfe->representante}}
+                                        @endif</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Data do NF-e
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">{{$nfe->emissao}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <div class="col-4 mb-3">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Peso da NF-e
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">{{ $nfe->peso }}Kg</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
