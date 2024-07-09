@@ -6,6 +6,7 @@ use App\Models\Nota;
 use App\Services\ErpNomus\Endpoints\Notas;
 use App\Services\ErpNomus\ErpNomusService;
 use Illuminate\Http\Request;
+use Termwind\Components\Dd;
 
 class NotaController extends Controller
 {
@@ -119,6 +120,7 @@ class NotaController extends Controller
     public function store(Request $request)
     {
 
+
         if ($request->canhoto != "") {
             $file = $request->canhoto;
             $file->store('public/canhotos');
@@ -146,10 +148,20 @@ class NotaController extends Controller
         $vFreteFormat = str_replace([".", ","], ["", "."], $freteForm);
         $nota->vfrete = $vFreteFormat;
 
+
+        $freteCobradoForm = $request->vfretePago;
+        $vFreteCobradoFormat = str_replace([".", ","], ["", "."], $freteCobradoForm);
+        $nota->vfretecobrado = $vFreteCobradoFormat;
+
         $vNotaForm = $request->vnota;
         $vNotaFormat = str_replace([".", ","], ["", "."], $vNotaForm);
+
+
         $nota->vnota = $vNotaFormat;
         $nota->canhoto = $hash;
+        $nota->transportadora = $request->transportadora;
+        $nota->tpfrete = $request->tpfrete;
+
 
         try {
             $nota->save();
