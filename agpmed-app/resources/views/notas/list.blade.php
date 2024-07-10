@@ -37,7 +37,7 @@
                                         {{ $nfe->ufcliente }}
                                     </div>
                                     <div class="col-4 text-end">
-                                        <span class="badge text-bg-primary rounded-pill">{{ $nfe->id }}</span>
+                                        <span class="badge text-bg-warning rounded-pill">{{ $nfe->status }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                             <div class="col-3 mb-3">
                                 <div class="card">
                                     <div class="card-header">
-                                        Data do NF-e
+                                        Emissão NF-e
                                     </div>
                                     <div class="card-body text-center">
                                         <h5 class="card-title">{{ \Carbon\Carbon::parse($nfe->emissao)->tz('America/Sao_Paulo')->format('d/m/Y')}}</h5>
@@ -122,6 +122,16 @@
                                         @else
                                             {{$nfe->tpfrete}}
                                         @endif</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Previsão Entrega
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">{{ \Carbon\Carbon::parse($nfe->previsaoentrega)->tz('America/Sao_Paulo')->format('d/m/Y')}}</h5>
                                     </div>
                                 </div>
                             </div>

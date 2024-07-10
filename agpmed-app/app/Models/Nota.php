@@ -27,6 +27,7 @@ class Nota extends Model
         'transportadora',
         'status',
         'tpfrete',
-        'vfretecobrado',
+        'vfretecotado',
+        'previsaoentrega',
     ];
 }

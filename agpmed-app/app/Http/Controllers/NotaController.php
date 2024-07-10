@@ -143,15 +143,16 @@ class NotaController extends Controller
         $nota->representante = $request->representante;
         $nota->volumes = $request->volumes;
         $nota->peso = $request->peso;
+        $nota->previsaoentrega = $request->prevEntrega;
 
         $freteForm = $request->vfrete;
         $vFreteFormat = str_replace([".", ","], ["", "."], $freteForm);
         $nota->vfrete = $vFreteFormat;
 
 
-        $freteCobradoForm = $request->vfretePago;
+        $freteCobradoForm = $request->vfreteCotado;
         $vFreteCobradoFormat = str_replace([".", ","], ["", "."], $freteCobradoForm);
-        $nota->vfretecobrado = $vFreteCobradoFormat;
+        $nota->vfretecotado = $vFreteCobradoFormat;
 
         $vNotaForm = $request->vnota;
         $vNotaFormat = str_replace([".", ","], ["", "."], $vNotaForm);
@@ -161,7 +162,7 @@ class NotaController extends Controller
         $nota->canhoto = $hash;
         $nota->transportadora = $request->transportadora;
         $nota->tpfrete = $request->tpfrete;
-
+        $nota->status = "AGUARDANDO COLETA";
 
         try {
             $nota->save();

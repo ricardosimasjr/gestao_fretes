@@ -12,10 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('notas', function (Blueprint $table) {
-            $table->string('transportadora');
-            $table->string('status')->nullable();
-            $table->string('tpfrete');
-            $table->float('vfretecotado', 2);
+            $table->date('previsaoentrega')->nullable();
         });
     }
 
