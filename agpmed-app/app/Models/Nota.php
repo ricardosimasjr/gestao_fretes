@@ -24,5 +24,10 @@ class Nota extends Model
         'vfrete',
         'vnota',
         'canhoto',
+        'transportadora',
+        'status',
+        'tpfrete',
+        'vfretecotado',
+        'previsaoentrega',
     ];
 }

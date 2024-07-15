@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nota;
-use App\Models\Pedido;
 use App\Services\ErpNomus\Endpoints\Notas;
 use App\Services\ErpNomus\ErpNomusService;
 use Illuminate\Http\Request;
+use Termwind\Components\Dd;
 
 class NotaController extends Controller
 {
     public function list()
     {
-        $pedidos = Pedido::get();
-        return view('notas.list', ['pedidos' => $pedidos]);
+        $notas = Nota::get();
+        return view('notas.list', ['notas' => $notas]);
     }
 
     public function create(Request $request)
@@ -44,12 +44,19 @@ class NotaController extends Controller
             $dhEmi = $json[0]['dataProcessamento'];
             $dateFormat = \DateTime::createFromFormat('d/m/Y', $dhEmi);
             $emissao = $dateFormat->format('Y-m-d');
-            $tpFrete = $xml->NFe->infNFe->transp->modFrete;
+            $modfrete = "";
+            if ($xml->NFe->infNFe->transp->modFrete == 0) {
+                $modfrete = "Remetente";
+            } else {
+                $modfrete = "Destinatáro";
+            };
             $transportadora = $xml->NFe->infNFe->transp->transporta->xNome;
             $qVol = $xml->NFe->infNFe->transp->vol->qVol;
             $pesoB = $xml->NFe->infNFe->transp->vol->pesoB;
             $vTotal = $xml->NFe->infNFe->total->ICMSTot->vNF;
+            $vTotalFormat = floatval($vTotal);
             $vTotalFrete = $xml->NFe->infNFe->total->ICMSTot->vFrete;
+            $vTotalFreteFormat = floatval($vTotalFrete);
 
             //Dados do Cliente
 
@@ -84,12 +91,10 @@ class NotaController extends Controller
             }
 
             // Informaçoes  do representante
-            if(isset($clienteNota[0]['representantes'])){
+            if (isset($clienteNota[0]['representantes'])) {
                 $representante = $clienteNota[0]['representantes'];
                 $representanteObj = $representante[0]['nome'];
-            }
-            else
-            {
+            } else {
                 $representanteObj = "-";
             }
         }
@@ -102,22 +107,31 @@ class NotaController extends Controller
             'municipio' => $municipio,
             'uf' => $uf,
             'representante' => $representanteObj,
+            'transportadora' => $transportadora,
             'volumes' => $qVol,
             'peso' => $pesoB,
             'vendedor' => $usuarioNota,
-            'valornota' => $vTotal,
-            'valorfrete' => $vTotalFrete,
-            'modfrete' => $tpFrete,
+            'valornota' => $vTotalFormat,
+            'valorfrete' => $vTotalFreteFormat,
+            'modfrete' => $modfrete,
         ]);
     }
 
     public function store(Request $request)
     {
-        
-        $file = $request->canhoto;
 
-        $file->store('public/canhotos');
-        $hash = $file->hashName();
+
+        if ($request->canhoto != "") {
+            $file = $request->canhoto;
+            $file->store('public/canhotos');
+            $hash = $file->hashName();
+        }
+        else{
+            $file = "";
+            $hash = "";
+        }
+
+
 
         $nota = new Nota();
         $nota->nfe = $request->nfe;
@@ -129,12 +143,49 @@ class NotaController extends Controller
         $nota->representante = $request->representante;
         $nota->volumes = $request->volumes;
         $nota->peso = $request->peso;
-        $nota->vfrete = $request->vfrete;
-        $nota->vnota = $request->vnota;
-        $nota->canhoto = $hash;
+        $nota->previsaoentrega = $request->prevEntrega;
 
-        $nota->save();
-        dd($nota);
+        $freteForm = $request->vfrete;
+        $vFreteFormat = str_replace([".", ","], ["", "."], $freteForm);
+        $nota->vfrete = $vFreteFormat;
+
+
+        $freteCobradoForm = $request->vfreteCotado;
+        $vFreteCobradoFormat = str_replace([".", ","], ["", "."], $freteCobradoForm);
+        $nota->vfretecotado = $vFreteCobradoFormat;
+
+        $vNotaForm = $request->vnota;
+        $vNotaFormat = str_replace([".", ","], ["", "."], $vNotaForm);
+
+
+        $nota->vnota = $vNotaFormat;
+        $nota->canhoto = $hash;
+        $nota->transportadora = $request->transportadora;
+        $nota->tpfrete = $request->tpfrete;
+        $nota->status = "AGUARDANDO COLETA";
+
+        try {
+            $nota->save();
+            return redirect()->route('notas.list');
+        } catch (\Throwable $th) {
+
+            var_dump($th);
+            $erno = $th->getCode();
+
+            if($erno == "23000")
+            {
+
+                return "Nota já cadastrada!". $th;
+            }
+
+        }
+
+
+
+
+
+
+
 
     }
 }
