@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/notas', [NotaController::class, 'list'])-> name('notas.list');
     Route::any('/notas/create', [NotaController::class, 'create'])-> name('notas.create');
     Route::post('/notas/store', [NotaController::class, 'store'])-> name('notas.store');
-    Route::get('/notas/show', [NotaController::class, 'show'])-> name('notas.show');
+    Route::get('/notas/show/{nota}', [NotaController::class, 'show'])-> name('notas.show');
     Route::get('/notas/edit', [NotaController::class, 'edit'])-> name('notas.edit');
     Route::put('/notas/update', [NotaController::class, 'update'])-> name('notas.update');
     Route::delete('/notas/destroy', [NotaController::class, 'destroy'])-> name('notas.destroy');
