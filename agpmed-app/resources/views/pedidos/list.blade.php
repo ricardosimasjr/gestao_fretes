@@ -27,10 +27,10 @@
                             <div class="row">
                                 <div class="row">
                                     <div class="col-6">
-                                        <b>{{ $pedido->codigopedido }}</b> - </b>{{ $pedido->nomecliente }}
+                                        <b>{{ $pedido->codigopedido }}</b> - </b>{{ $pedido->nomecliente }} -  {{ $pedido->ufcliente }}
                                     </div>
                                     <div class="col-2">
-                                        {{ $pedido->ufcliente }}
+                                       
                                     </div>
                                     <div class="col-4 text-end">
                                         <span class="badge text-bg-primary rounded-pill">{{ $pedido->id }}</span>
