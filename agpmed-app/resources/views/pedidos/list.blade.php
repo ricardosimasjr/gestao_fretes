@@ -12,6 +12,7 @@
             </div>
             <div class="col-6 text-end">
                 <a class="btn btn-success" href="{{ route('pedidos.create') }}">Novo Pedido</a>
+                <a class="btn btn-primary" href="{{ route('pedidos.updatenota')}}">Atualizar</a>
             </div>
         </div>
     </div>
@@ -30,7 +31,7 @@
                                         <b>{{ $pedido->codigopedido }}</b> - </b>{{ $pedido->nomecliente }} -  {{ $pedido->ufcliente }}
                                     </div>
                                     <div class="col-2">
-                                       
+
                                     </div>
                                     <div class="col-4 text-end">
                                         <span class="badge text-bg-primary rounded-pill">{{ $pedido->id }}</span>

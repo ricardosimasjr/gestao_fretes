@@ -16,7 +16,6 @@ class PedidoController extends Controller
     public function list()
     {
        $pedidos = Pedido::get();
-       Ds($pedidos);
        return view('pedidos.list', ['pedidos' => $pedidos]);
     }
 
@@ -134,12 +133,9 @@ class PedidoController extends Controller
     {
         $peso = $request->request->get('peso');
         $pesoBruto = str_replace(',','.', $peso);
-        $cubagem = $request->request->get('cubagem');
-        $volumeCubado = str_replace(',','.',$cubagem);
 
 
         $request->request->set('peso', $pesoBruto);
-        $request->request->set('cubagem', $volumeCubado);
 
         try {
             $pedido = Pedido::create($request->all());
@@ -162,5 +158,15 @@ class PedidoController extends Controller
 
 
 
+    }
+
+    public function updateNota()
+    {
+        $pedidos = Pedido::get();
+
+        foreach ($pedidos as $pedido){
+            $pednum = $pedido->codigopedido;
+            Ds($pednum);
+        };
     }
 }

@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pedidos/show', [PedidoController::class, 'show'])-> name('pedidos.show');
     Route::get('/pedidos/edit', [PedidoController::class, 'edit'])-> name('pedidos.edit');
     Route::put('/pedidos/update', [PedidoController::class, 'update'])-> name('pedidos.update');
+    Route::get('/pedidos/updatenota', [PedidoController::class, 'updateNota'])-> name('pedidos.updatenota');
     Route::delete('/pedidos/destroy', [PedidoController::class, 'destroy'])-> name('pedidos.destroy');
 
     //Notas
