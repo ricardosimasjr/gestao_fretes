@@ -162,11 +162,8 @@ class PedidoController extends Controller
 
     public function updateNota()
     {
-        $pedidos = Pedido::get();
+        $pedidos = Pedido::get('codigopedido');
 
-        foreach ($pedidos as $pedido){
-            $pednum = $pedido->codigopedido;
-            Ds($pednum);
-        };
+        ds($pedidos);
     }
 }

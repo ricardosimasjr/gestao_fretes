@@ -10,7 +10,7 @@ class TransportadorController extends Controller
     public function list()
     {
         $transportadores = Transportador::orderByDesc('id')->get();
-        
+
         return view('transportadores.list', ['transportadores' => $transportadores]);
     }
 
@@ -24,7 +24,7 @@ class TransportadorController extends Controller
        $transportador = Transportador::create($request->all());
        $transportador->save();
 
-       return redirect()->route('transportador.show', $transportador->id)->with('sucess', 'Transportadora Cadastrada com Sucesso!');
+       return redirect()->route('transportador.list');
     }
 
     public function show()
