@@ -9,8 +9,7 @@ class TransportadorController extends Controller
 {
     public function list()
     {
-        $transportadores = Transportador::orderByDesc('id')->get();
-
+        $transportadores = Transportador::orderByDesc('id')->paginate(10);
         return view('transportadores.list', ['transportadores' => $transportadores]);
     }
 

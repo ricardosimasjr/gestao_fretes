@@ -97,4 +97,8 @@
             </div>
         @endforeach
     </div>
+    <hr>
+    <div>
+        {{$transportadores->links()}}
+    </div>
 @endsection
