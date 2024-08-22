@@ -21,5 +21,6 @@ class Pedido extends Model
         'representantepedido',
         'volumes',
         'peso',
+        'valor'
     ];
 }

@@ -67,7 +67,15 @@
                     <div class="input-group-text">Kg</div>
                 </div>
             </div>
-            
+            <div class="col-2">
+                <label class="form-label" for="peso">Valor</label>
+                <div class="input-group">
+                    <div class="input-group-text">R$</div>
+                    <input type="text" class="form-control" id="peso" name="peso" value="@if (isset($valorTotalPedido)) {{ number_format($valorTotalPedido, 2, ',', '.')}} @endif">
+
+                </div>
+            </div>
+
         </div>
         <div class="row">
             <div class="mb-3 mt-3">
