@@ -7,10 +7,18 @@ use App\Models\Transportador;
 
 class TransportadorController extends Controller
 {
-    public function list()
+    public function list(Request $request)
     {
-        $transportadores = Transportador::orderByDesc('id')->paginate(10);
-        return view('transportadores.list', ['transportadores' => $transportadores]);
+        $transportadores = Transportador::when($request->has('transportadora'), function($whenQuery) use ($request){
+            $whenQuery->where('nome', 'like', '%' . $request->transportadora . '%');
+        })
+        ->orderByDesc('id')
+        ->paginate(3)
+        ->withQueryString();
+        return view('transportadores.list', [
+            'transportadores' => $transportadores,
+            'transportadora' => $request->nome,
+        ]);
     }
 
     public function create()

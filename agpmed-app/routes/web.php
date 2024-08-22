@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pedidos', [PedidoController::class, 'list'])-> name('pedidos.list');
     Route::any('/pedidos/create', [PedidoController::class, 'create'])-> name('pedidos.create');
     Route::post('/pedidos/store', [PedidoController::class, 'store'])-> name('pedidos.store');
-    Route::get('/pedidos/show', [PedidoController::class, 'show'])-> name('pedidos.show');
+    Route::get('/pedidos/show/{pedido}', [PedidoController::class, 'show'])-> name('pedidos.show');
     Route::get('/pedidos/edit', [PedidoController::class, 'edit'])-> name('pedidos.edit');
     Route::put('/pedidos/update', [PedidoController::class, 'update'])-> name('pedidos.update');
     Route::get('/pedidos/updatenota', [PedidoController::class, 'updateNota'])-> name('pedidos.updatenota');

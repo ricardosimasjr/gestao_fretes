@@ -14,6 +14,26 @@
                 <a class="btn btn-success" href="{{ route('transportador.create') }}">Nova Transportadora</a>
             </div>
         </div>
+        <div class="card mt-3 mb-4 border-ligth shadow">
+            <div class="card-header d-flex justify-content-between">
+                <span> Pesquisar</span>
+            </div>
+
+            <div class="card-body">
+                <form action="{{ route('transportador.list')}}">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <label class="form-label" for="transportadora">Transportadora</label>
+                            <input class="form-control" type="text" name="transportadora" id="transportadora" value="">
+                        </div>
+                        <div class="col-md-6 col-sm-12 mt-2 pt-4">
+                            <button class="btn btn-info btn-sm" type="submit">Pesquisar</button>
+                            <a class="btn btn-warning btn-sm" href="{{ route('transportador.list')}}">Limpar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <hr>
     <div class="accordion accordion-flush mb-3" id="pedidoList">

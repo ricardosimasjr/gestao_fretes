@@ -15,93 +15,54 @@
                 <a class="btn btn-primary" href="{{ route('pedidos.updatenota')}}">Atualizar</a>
             </div>
         </div>
+        <div class="card mt-3 mb-4 border-ligth shadow">
+            <div class="card-header d-flex justify-content-between">
+                <span> Pesquisar</span>
+            </div>
+
+            <div class="card-body">
+                <form action="{{ route('pedidos.list')}}">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <label class="form-label" for="cliente">Cliente</label>
+                            <input class="form-control" type="text" name="cliente" id="cliente" value="">
+                        </div>
+                        <div class="col-md-6 col-sm-12 mt-2 pt-4">
+                            <button class="btn btn-info btn-sm" type="submit">Pesquisar</button>
+                            <a class="btn btn-warning btn-sm" href="{{ route('pedidos.list')}}">Limpar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <hr>
-    <div class="accordion accordion-flush mb-3" id="pedidoList">
-        @foreach ($pedidos as $pedido)
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapse{{ $pedido->id }}" aria-expanded="false"
-                        aria-controls="flush-collapse{{ $pedido->id }}">
-                        <div class="container">
-                            <div class="row">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <b>{{ $pedido->codigopedido }}</b> - </b>{{ $pedido->nomecliente }} -  {{ $pedido->ufcliente }}
-                                    </div>
-                                    <div class="col-2">
-
-                                    </div>
-                                    <div class="col-4 text-end">
-                                        <span class="badge text-bg-primary rounded-pill">{{ $pedido->id }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </button>
-                </h2>
-                <div id="flush-collapse{{ $pedido->id }}" class="accordion-collapse collapse" data-bs-parent="pedidoList">
-                    <div class="accordion-body">
-                        <div class="row">
-                            <div class="col-4 mb-3">
-                                <div class="card">
-                                    <div class="card-header">
-                                        Vendedor
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title text-center">{{ $pedido->vendedorpedido }}</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4 mb-3">
-                                <div class="card">
-                                    <div class="card-header">
-                                        Representante
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title text-center">@if ($pedido->representantepedido == null)
-                                            -
-                                        @else
-                                            {{$pedido->representantepedido}}
-                                        @endif</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 mb-3">
-                                <div class="card">
-                                    <div class="card-header">
-                                        Data do Pedido
-                                    </div>
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">{{ $pedido->datapedido }}</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6 mb-3">
-                                <div class="col-4 mb-3">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            Peso do Pedido
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h5 class="card-title">{{ $pedido->peso }}Kg</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        @endforeach
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Data</th>
+                <th scope="col">Pedido</th>
+                <th scope="col">Cliente</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($pedidos as $pedido)
+              <tr>
+                <td>{{ \Carbon\Carbon::parse($pedido->datapedido)->tz('America/Sao_Paulo')->format('d/m/y') }}</td>
+                <td>{{$pedido->codigopedido}}</td>
+                <td>{{$pedido->nomecliente}}</td>
+                <td><a class="btn btn-info btn-sm" href="{{route('pedidos.show', ['pedido' => $pedido->id])}}">Exibir</a></td>
+                <td><a class="btn btn-warning btn-sm" href="{{route('pedidos.edit', ['pedido' => $pedido->id])}}">Editar</a></td>
+                <td><a class="btn btn-danger btn-sm" href="{{route('pedidos.destroy', ['pedido' => $pedido->id])}}">Excluir</a></td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
     </div>
     <div class="container">
         <div class="row">
-            Rodapé
+            {{$pedidos->links()}}
         </div>
     </div>
 @endsection

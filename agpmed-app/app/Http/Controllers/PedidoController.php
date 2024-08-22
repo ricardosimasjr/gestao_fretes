@@ -13,10 +13,18 @@ use function Pest\Laravel\get;
 
 class PedidoController extends Controller
 {
-    public function list()
+    public function list(Request $request)
     {
-       $pedidos = Pedido::get();
-       return view('pedidos.list', ['pedidos' => $pedidos]);
+       $pedidos = Pedido::when($request->has('cliente'), function($whenQuery) use ($request){
+            $whenQuery->where('nomecliente', 'like', '%' . $request->cliente . '%');
+       })
+       ->paginate(3)
+       ->withQueryString();
+       return view('pedidos.list', [
+        'pedidos' => $pedidos,
+        'cliente' => $request->cliente
+
+    ]);
     }
 
     public function create(Request $request)
@@ -39,7 +47,6 @@ class PedidoController extends Controller
             if (isset($json[0]))  # Caso o Request tenha um retorno válido
             {
                 # Informações do Pedido
-
                 $dadosPedido = $json[0];
                 $codigoPedido = $json[0]['codigoPedido'];
                 $dataEmissao = $json[0]['dataEmissao'];
@@ -47,7 +54,14 @@ class PedidoController extends Controller
                 $idPessoaVendedor = $json[0]['idPessoaVendedor'];
                 $dateFormat = \DateTime::createFromFormat('d/m/Y', $dataEmissao);
                 $dataPedido = $dateFormat->format('Y-m-d');
-
+                $parcelas = $json[0]['parcelas'];
+                $totalPedido = 0;
+                foreach ($parcelas as $parcela) {
+                    $valor = (str_replace('.', '', $parcela['valorParcela']));
+                    $valorFinal = floatval(str_replace(',', '.', $valor));
+                    $totalPedido += $valorFinal;
+                };
+                $valorTotalPedido = $totalPedido;
                 # -------------------------------------------------------------------------------
 
                 #Informações do Cliente
@@ -116,6 +130,7 @@ class PedidoController extends Controller
                     'ufPessoa' => $ufPessoa,
                     'vendedor' => $vendedor,
                     'representante' => $representante,
+                    'valorTotalPedido' => $valorTotalPedido
                 ]);
             } else # Caso o Request tenha um retorno nulo
             {
@@ -158,6 +173,12 @@ class PedidoController extends Controller
 
 
 
+    }
+
+    public function show(Pedido $pedido)
+    {
+        //Chama View
+        return view('pedidos.show', ['pedido' => $pedido]);
     }
 
     public function updateNota()
