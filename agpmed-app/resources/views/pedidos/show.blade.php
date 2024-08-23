@@ -64,6 +64,14 @@
 
             </div>
             <div class="col-2">
+                <label class="form-label" for="valor">Valor</label>
+                <div class="input-group">
+                    <div class="input-group-text">R$</div>
+                    <input type="text" class="form-control" id="valor" name="valor" value="@if (isset($pedido->valor)) {{ number_format($pedido->valor, 2, ',', '.')}} @endif">
+
+                </div>
+            </div>
+            <div class="col-2">
                 <label class="form-label" for="peso">Peso</label>
                 <div class="input-group">
                     <input type="text" class="form-control" id="peso" name="peso" value="{{ $pedido->peso}}">

@@ -12,11 +12,17 @@ class Cotacao extends Model
     protected $table = 'cotacao';
 
     protected $fillable = [
-        'id_transportador',
-        'id_cliente',
-        'id_usuario',
-        'valor'
+        'cliente',
+        'usuario',
+        'pedido',
+        'transportadora',
+        'valorcotado',
     ];
+
+    public function pedido()
+    {
+        return $this->belongsTo(Pedido::class);
+    }
 
     public function transportador()
     {

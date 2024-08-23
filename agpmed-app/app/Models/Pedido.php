@@ -23,4 +23,9 @@ class Pedido extends Model
         'peso',
         'valor'
     ];
+
+    public function cotacao()
+    {
+        return $this->hasMany(Cotacao::class);
+    }
 }

@@ -15,16 +15,16 @@ class PedidoController extends Controller
 {
     public function list(Request $request)
     {
-       $pedidos = Pedido::when($request->has('cliente'), function($whenQuery) use ($request){
+        $pedidos = Pedido::when($request->has('cliente'), function ($whenQuery) use ($request) {
             $whenQuery->where('nomecliente', 'like', '%' . $request->cliente . '%');
-       })
-       ->paginate(3)
-       ->withQueryString();
-       return view('pedidos.list', [
-        'pedidos' => $pedidos,
-        'cliente' => $request->cliente
+        })
+            ->paginate(5)
+            ->withQueryString();
+        return view('pedidos.list', [
+            'pedidos' => $pedidos,
+            'cliente' => $request->cliente
 
-    ]);
+        ]);
     }
 
     public function create(Request $request)
@@ -52,16 +52,23 @@ class PedidoController extends Controller
                 $dataEmissao = $json[0]['dataEmissao'];
                 $idPessoaCliente = $json[0]['idPessoaCliente'];
                 $idPessoaVendedor = $json[0]['idPessoaVendedor'];
-                $dateFormat = \DateTime::createFromFormat('d/m/Y', $dataEmissao);
+                $dateFormat = \DateTime::createFromFormat('d/m/Y',$dataEmissao);
                 $dataPedido = $dateFormat->format('Y-m-d');
-                $parcelas = $json[0]['parcelas'];
-                $totalPedido = 0;
-                foreach ($parcelas as $parcela) {
-                    $valor = (str_replace('.', '', $parcela['valorParcela']));
-                    $valorFinal = floatval(str_replace(',', '.', $valor));
-                    $totalPedido += $valorFinal;
-                };
-                $valorTotalPedido = $totalPedido;
+
+                if (isset($json[0]['parcelas'])) {
+                    $parcelas = $json[0]['parcelas'];
+                    $totalPedido = 0;
+                    foreach ($parcelas as $parcela) {
+                        $valor = (str_replace('.', '', $parcela['valorParcela']));
+                        $valorFinal = floatval(str_replace(',', '.', $valor));
+                        $totalPedido += $valorFinal;
+                    };
+                    $valorTotalPedido = $totalPedido;
+                }
+                else
+                {
+                    $valorTotalPedido = 0;
+                }
                 # -------------------------------------------------------------------------------
 
                 #Informações do Cliente
@@ -75,12 +82,9 @@ class PedidoController extends Controller
                 $nomePessoa = $clientePedido['razaoSocial'];
                 $ufPessoa = $clientePedido['uf'];
 
-                if(isset($clientePedido['grupoPessoa']))
-                {
+                if (isset($clientePedido['grupoPessoa'])) {
                     $grupoPessoa = $clientePedido['grupoPessoa'];
-                }
-                else
-                {
+                } else {
                     $grupoPessoa = '';
                 }
 
@@ -119,7 +123,7 @@ class PedidoController extends Controller
                 }
 
                 # Retorno da Função
-
+                //dd($dataPedido);
                 return view('pedidos.create', [
                     'codigoPedido' => $codigoPedido,
                     'dataPedido' => $dataPedido,
@@ -146,33 +150,44 @@ class PedidoController extends Controller
 
     public function store(Request $request)
     {
+
+
+
         $peso = $request->request->get('peso');
-        $pesoBruto = str_replace(',','.', $peso);
+        //dd($peso);
+
+        if($peso == null)
+        {
+            $peso = 0;
+        }
+        else
+        {
+            $pesoBruto = str_replace(',', '.', $peso);
+            $request->request->set('peso', $pesoBruto);
+        }
 
 
-        $request->request->set('peso', $pesoBruto);
+
+        $valor = $request->request->get('valor');
+        $valorFinal = str_replace('.', '', $valor);
+        $valorFinalFormat = str_replace(',', '.', $valorFinal);
+        $request->request->set('valor', $valorFinalFormat);
+        //dd($request);
 
         try {
             $pedido = Pedido::create($request->all());
             $pedido->save();
-            return "Pedido Cadastrado com Sucesso!";
+            return redirect(route('pedidos.list'));
         } catch (\Throwable $th) {
 
             var_dump($th);
             $erno = $th->getCode();
 
-            if($erno == "23000")
-            {
+            if ($erno == "23000") {
 
-                return "Pedido já cadastrado!". $th;
+                return "Pedido já cadastrado!" . $th;
             }
-
         }
-
-
-
-
-
     }
 
     public function show(Pedido $pedido)

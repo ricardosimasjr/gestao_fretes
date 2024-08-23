@@ -5,6 +5,15 @@
 @endsection
 
 @section('content')
+    <div class="row mb-3">
+        <div class="col-6">
+            <h3>Novo Pedido</h3>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-success" href="{{ route('pedidos.list') }}">Voltar</a>
+        </div>
+    </div>
+    <hr>
     <form class="row row-cols-lg-auto g-3 align-items-center mb-4" action="" method="POST">
         @csrf
         <div class="col-md-6">
@@ -44,7 +53,7 @@
             <div class="col-2 mb-3">
                 <label for="datapedido" class="form-label">Data Pedido</label>
                 <input type="date" class="form-control" id="datapedido" name="datapedido"
-                    value="@if (isset($dataPedido)){{$dataPedido}}@endif">
+                    value="@if(isset($dataPedido)){{$dataPedido}}@endif">
             </div>
             <div class="col-4 mb-6">
                 <label for="vendedorpedido" class="form-label">Vendedor</label>
@@ -68,10 +77,11 @@
                 </div>
             </div>
             <div class="col-2">
-                <label class="form-label" for="peso">Valor</label>
+                <label class="form-label" for="valor">Valor</label>
                 <div class="input-group">
                     <div class="input-group-text">R$</div>
-                    <input type="text" class="form-control" id="peso" name="peso" value="@if (isset($valorTotalPedido)) {{ number_format($valorTotalPedido, 2, ',', '.')}} @endif">
+                    <input type="text" class="form-control" id="valor" name="valor"
+                        value="@if (isset($valorTotalPedido)) {{ number_format($valorTotalPedido, 2, ',', '.') }} @endif">
 
                 </div>
             </div>
@@ -88,8 +98,8 @@
         function id(el) {
             return document.getElementById(el);
         }
-        window.onload = function () {
-            id('peso').onkeyup = function () {
+        window.onload = function() {
+            id('peso').onkeyup = function() {
                 var v = this.value,
                     integer = v.split(',')[0];
 

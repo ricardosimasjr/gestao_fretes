@@ -49,12 +49,13 @@
             <tbody>
               @foreach ($pedidos as $pedido)
               <tr>
-                <td>{{ \Carbon\Carbon::parse($pedido->datapedido)->tz('America/Sao_Paulo')->format('d/m/y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($pedido->datapedido)->tz('America/Sao_Paulo')->format('d/m/Y') }}</td>
                 <td>{{$pedido->codigopedido}}</td>
                 <td>{{$pedido->nomecliente}}</td>
                 <td><a class="btn btn-info btn-sm" href="{{route('pedidos.show', ['pedido' => $pedido->id])}}">Exibir</a></td>
                 <td><a class="btn btn-warning btn-sm" href="{{route('pedidos.edit', ['pedido' => $pedido->id])}}">Editar</a></td>
                 <td><a class="btn btn-danger btn-sm" href="{{route('pedidos.destroy', ['pedido' => $pedido->id])}}">Excluir</a></td>
+                <td><a class="btn btn-success btn-sm" href="{{route('cotacoes.create', ['pedido' => $pedido->id])}}">Cotar</a></td>
               </tr>
               @endforeach
             </tbody>
