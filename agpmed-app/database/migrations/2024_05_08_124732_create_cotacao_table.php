@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('cotacao', function (Blueprint $table) {
             $table->id();
-            $table->string('cliente');
-            $table->string('usuario');
+            $table->foreignId('idTransportadora')->constrained('transportadores');
+            $table->date('dataCotacao');
             $table->foreignId('pedido_id')->constrained('pedidos');
-            $table->string('transportadora');
-            $table->float('valorcotado', precision:2);
+            $table->float('valor', precision:2);
             $table->timestamps();
         });
     }

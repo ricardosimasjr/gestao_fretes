@@ -15,8 +15,6 @@
         </div>
     </div>
     <hr>
-    <form action="{{ route('pedidos.store') }}" method="post">
-        @csrf
         <div class="row">
             <div class="col-2 mb-3">
                 <label for="codigopedido" class="form-label">Pedido</label>
@@ -39,7 +37,7 @@
                     value="{{ $pedido->ufcliente}}">
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-2 mb-3">
                 <label for="datapedido" class="form-label">Data Pedido</label>
                 <input type="date" class="form-control" id="datapedido" name="datapedido"
@@ -78,33 +76,31 @@
                     <div class="input-group-text">Kg</div>
                 </div>
             </div>
-
         </div>
-    </form>
+        <hr>
+        <span><h4><b>Cotações</b></h4></span>
+        <hr>
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Data</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Transportadora</th>
+                    <th scope="col">Valor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($pedidos as $pedido)
+                  <tr>
+                    <td>{{ \Carbon\Carbon::parse($cotacao->dataCotacao)->tz('America/Sao_Paulo')->format('d/m/Y') }}</td>
+                    <td>{{$pedido->cotacao->id}}</td>
+                    <td>{{$pedido->cotacao->idTransportadora}}</td>
+                    <td>{{$pedido->cotacao->valor}}</td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+        </div>
 
-    <script type="text/javascript">
-        function id(el) {
-            return document.getElementById(el);
-        }
-        window.onload = function() {
-            id('peso').onkeyup = function() {
-                var v = this.value,
-                    integer = v.split(',')[0];
-
-
-                v = v.replace(/\D/, "");
-                v = v.replace(/^[0]+/, "");
-
-                if (v.length <= 3 || !integer) {
-                    if (v.length === 1) v = '0,00' + v;
-                    if (v.length === 2) v = '0,0' + v;
-                    if (v.length === 3) v = '0,' + v;
-                } else {
-                    v = v.replace(/^(\d{1,})(\d{3})$/, "$1,$2");
-                }
-
-                this.value = v;
-            }
-        };
-    </script>
 @endsection

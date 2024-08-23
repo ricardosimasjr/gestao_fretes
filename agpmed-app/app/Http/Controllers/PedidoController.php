@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cotacao;
 use App\Models\Pedido;
 use App\Services\ErpNomus\ErpNomusService;
 use Illuminate\Http\Request;
@@ -18,8 +19,10 @@ class PedidoController extends Controller
         $pedidos = Pedido::when($request->has('cliente'), function ($whenQuery) use ($request) {
             $whenQuery->where('nomecliente', 'like', '%' . $request->cliente . '%');
         })
+            ->with('cotacao')
             ->paginate(5)
             ->withQueryString();
+
         return view('pedidos.list', [
             'pedidos' => $pedidos,
             'cliente' => $request->cliente
@@ -192,8 +195,10 @@ class PedidoController extends Controller
 
     public function show(Pedido $pedido)
     {
+        $cotacoes = Cotacao::get()->where('idpedido', '=', $pedido->id);
+
         //Chama View
-        return view('pedidos.show', ['pedido' => $pedido]);
+        return view('pedidos.show', ['pedido' => $pedido, 'cotacoes' => $cotacoes]);
     }
 
     public function updateNota()
