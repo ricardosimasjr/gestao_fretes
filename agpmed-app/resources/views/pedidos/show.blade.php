@@ -91,12 +91,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($pedidos as $pedido)
+                  @foreach ($pedidos->cotacao as $cotacao)
                   <tr>
                     <td>{{ \Carbon\Carbon::parse($cotacao->dataCotacao)->tz('America/Sao_Paulo')->format('d/m/Y') }}</td>
-                    <td>{{$pedido->cotacao->id}}</td>
-                    <td>{{$pedido->cotacao->idTransportadora}}</td>
-                    <td>{{$pedido->cotacao->valor}}</td>
+                    <td>{{$cotacao->id}}</td>
+                    <td>{{$cotacao->idTransportadora}}</td>
+                    <td>{{$cotacao->valor}}</td>
                   </tr>
                   @endforeach
                 </tbody>
