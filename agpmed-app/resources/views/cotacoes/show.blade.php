@@ -6,6 +6,6 @@
 
 @section('content')
 <div class="card">
-    <span>{{ $cotacoes}}</span>
+    <span>-</span>
 </div>
 @endsection

@@ -202,11 +202,8 @@ class PedidoController extends Controller
     {
         $pedido = Pedido::with('cotacao.transportador')
         ->find($pedido->id);
-        dd($pedido);
 
-        //dd($cotacoes);
-        //Chama View
-        return view('pedidos.show', ['pedido' => $pedido, 'cotacoes' => $cotacoes]);
+        return view('pedidos.show', ['pedidos' => $pedido]);
     }
 
     public function updateNota()

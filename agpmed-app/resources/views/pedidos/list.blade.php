@@ -8,11 +8,10 @@
     <div class="container mb-4">
         <div class="row">
             <div class="col-6">
-                <h3>Pedido de Venda</h3>
+                <h3>Pedidos de Venda / Cotações</h3>
             </div>
             <div class="col-6 text-end">
                 <a class="btn btn-success" href="{{ route('pedidos.create') }}">Novo Pedido</a>
-                <a class="btn btn-primary" href="{{ route('pedidos.updatenota')}}">Atualizar</a>
             </div>
         </div>
         <div class="card mt-3 mb-4 border-ligth shadow">
@@ -38,7 +37,7 @@
     </div>
     <hr>
     <div class="row">
-        <table class="table table-striped">
+        <table class="table table-striped table-responsive table-hover table-sm">
             <thead>
               <tr>
                 <th scope="col">Data</th>
