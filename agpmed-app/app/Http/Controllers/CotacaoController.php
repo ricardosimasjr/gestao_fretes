@@ -12,9 +12,7 @@ class CotacaoController extends Controller
 {
     public function list(Request $request)
     {
-        $cotacoes = Cotacao::with('transportador')->get()->with('transportador');
-
-        dd($cotacoes);
+        $cotacoes = Cotacao::with('transportador')->get();
 
         return view('cotacoes.list', ['cotacoes' => $cotacoes]);
     }
@@ -35,5 +33,11 @@ class CotacaoController extends Controller
         $cotacao = Cotacao::create($request->all());
         $cotacao->save();
         return redirect(route('pedidos.list'));
+    }
+
+    public function show (Cotacao $cotacao)
+    {
+        $cotacao = Cotacao::with('transportador')->find($cotacao->id);
+        dd($cotacao);
     }
 }

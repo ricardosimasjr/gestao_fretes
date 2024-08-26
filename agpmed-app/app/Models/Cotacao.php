@@ -12,9 +12,10 @@ class Cotacao extends Model
     protected $table = 'cotacao';
 
     protected $fillable = [
-        'idTransportadora',
+        'transportador_id',
         'dataCotacao',
         'pedido_id',
+        'codcotacao',
         'valor',
     ];
 

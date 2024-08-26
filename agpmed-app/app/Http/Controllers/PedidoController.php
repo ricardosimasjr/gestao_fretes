@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Cotacao;
 use App\Models\Pedido;
+use App\Models\Transportador;
 use App\Services\ErpNomus\ErpNomusService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use LaraDumps\LaraDumps\Livewire\Attributes\Ds;
 use PhpParser\Node\Stmt\TryCatch;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
@@ -22,6 +24,9 @@ class PedidoController extends Controller
             ->with('cotacao')
             ->paginate(5)
             ->withQueryString();
+
+
+
 
         return view('pedidos.list', [
             'pedidos' => $pedidos,
@@ -195,8 +200,11 @@ class PedidoController extends Controller
 
     public function show(Pedido $pedido)
     {
-        $cotacoes = Cotacao::get()->where('idpedido', '=', $pedido->id);
+        $pedido = Pedido::with('cotacao.transportador')
+        ->find($pedido->id);
+        dd($pedido);
 
+        //dd($cotacoes);
         //Chama View
         return view('pedidos.show', ['pedido' => $pedido, 'cotacoes' => $cotacoes]);
     }

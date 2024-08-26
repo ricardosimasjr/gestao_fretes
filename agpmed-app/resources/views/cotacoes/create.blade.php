@@ -15,10 +15,11 @@
     </div>
     <hr>
     <div class="container">
-        <form action="{{ route('cotacoes.store')}}" method="post">
+        <form action="{{ route('cotacoes.store') }}" method="post">
             @csrf
             <div class="row">
-                <select class="form-select mb-3" aria-label="Default select example" id="idTransportadora" name="idTransportadora">
+                <select class="form-select mb-3" aria-label="Default select example" id="transportador_id"
+                    name="transportador_id" required>
                     <option selected value="">Selecione a tranportadora</option>
                     @foreach ($transportadoras as $transportadora)
                         <option value="{{ $transportadora->id }}">{{ $transportadora->nome }}</option>
@@ -38,10 +39,17 @@
             </div>
             <div class="row mb-3">
                 <div class="col-2">
+                    <label class="form-label" for="codcotacao">Cod. Cotação</label>
+                    <input type="text" class="form-control" id="codcotacao" name="codcotacao" value="" />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-2">
                     <label class="form-label" for="valor">Valor</label>
                     <div class="input-group">
                         <div class="input-group-text">R$</div>
-                        <input type="text" class="form-control" id="valor" name="valor" id="valor" value="" />
+                        <input type="text" class="form-control" id="valor" name="valor" id="valor"
+                            value="" />
                     </div>
                 </div>
             </div>

@@ -16,7 +16,8 @@
         <div style="font-size: " class="card">
             <h3 class="card-header">#{{ $cotacao->id }} - {{ $cotacao->transportador->nome}}</h3>
             <div class="card-body">
-                <h5 class="card-text">{{ $cotacao->user->name }}</h5>
+                <h5 class="card-text">-</h5>
+                <a class="btn btn-outline-primary btn-sm" href="{{route('cotacoes.show', ['cotacao' => $cotacao->id])}}">Exibir</a>
             </div>
         </div>
     @endforeach

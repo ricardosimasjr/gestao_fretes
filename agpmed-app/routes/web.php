@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cotacoes', [CotacaoController::class, 'list'])-> name('cotacoes.list');
     Route::any('/cotacoes/create', [CotacaoController::class, 'create'])-> name('cotacoes.create');
     Route::post('/cotacoes/store', [CotacaoController::class, 'store'])-> name('cotacoes.store');
+    Route::get('/cotacoes/show/{cotacao}', [CotacaoController::class, 'show'])-> name('cotacoes.show');
 
     //Pedidos
 
