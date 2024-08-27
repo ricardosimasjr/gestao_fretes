@@ -22,6 +22,12 @@ class PedidoController extends Controller
             $whenQuery->where('nomecliente', 'like', '%' . $request->cliente . '%');
         })
             ->with('cotacao')
+            ->when($request->filled('dtini'), function ($whenQuery) use ($request) {
+                $whenQuery->where('datapedido', '>=', \Carbon\Carbon::parse($request->dtini)->format('Y-m-d'));
+            })
+            ->when($request->filled('dtfin'), function ($whenQuery) use ($request) {
+                $whenQuery->where('datapedido', '<=', \Carbon\Carbon::parse($request->dtfin)->format('Y-m-d'));
+            })
             ->paginate(5)
             ->withQueryString();
 
@@ -30,7 +36,9 @@ class PedidoController extends Controller
 
         return view('pedidos.list', [
             'pedidos' => $pedidos,
-            'cliente' => $request->cliente
+            'cliente' => $request->cliente,
+            'dtini' => $request->dtini,
+            'dtfin' => $request->dtfin,
 
         ]);
     }
@@ -60,7 +68,7 @@ class PedidoController extends Controller
                 $dataEmissao = $json[0]['dataEmissao'];
                 $idPessoaCliente = $json[0]['idPessoaCliente'];
                 $idPessoaVendedor = $json[0]['idPessoaVendedor'];
-                $dateFormat = \DateTime::createFromFormat('d/m/Y',$dataEmissao);
+                $dateFormat = \DateTime::createFromFormat('d/m/Y', $dataEmissao);
                 $dataPedido = $dateFormat->format('Y-m-d');
 
                 if (isset($json[0]['parcelas'])) {
@@ -72,9 +80,7 @@ class PedidoController extends Controller
                         $totalPedido += $valorFinal;
                     };
                     $valorTotalPedido = $totalPedido;
-                }
-                else
-                {
+                } else {
                     $valorTotalPedido = 0;
                 }
                 # -------------------------------------------------------------------------------
@@ -164,12 +170,9 @@ class PedidoController extends Controller
         $peso = $request->request->get('peso');
         //dd($peso);
 
-        if($peso == null)
-        {
+        if ($peso == null) {
             $peso = 0;
-        }
-        else
-        {
+        } else {
             $pesoBruto = str_replace(',', '.', $peso);
             $request->request->set('peso', $pesoBruto);
         }
@@ -201,7 +204,7 @@ class PedidoController extends Controller
     public function show(Pedido $pedido)
     {
         $pedido = Pedido::with('cotacao.transportador')
-        ->find($pedido->id);
+            ->find($pedido->id);
 
         return view('pedidos.show', ['pedidos' => $pedido]);
     }

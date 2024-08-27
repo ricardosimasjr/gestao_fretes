@@ -22,11 +22,19 @@
             <div class="card-body">
                 <form action="{{ route('pedidos.list') }}">
                     <div class="row">
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <label class="form-label" for="cliente">Cliente</label>
-                            <input class="form-control" type="text" name="cliente" id="cliente" value="">
+                            <input class="form-control" type="text" name="cliente" id="cliente" value="{{$cliente}}">
                         </div>
-                        <div class="col-md-6 col-sm-12 mt-2 pt-4">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label" for="dtini">Data Inicial</label>
+                            <input class="form-control" type="date" name="dtini" id="dtini" value="{{$dtini}}">
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label" for="dtfin">Data Final</label>
+                            <input class="form-control" type="date" name="dtfin" id="dtfin" value="{{$dtfin}}">
+                        </div>
+                        <div class="col-md-4 col-sm-12 mt-2 pt-4">
                             <button class="btn btn-info btn-sm" type="submit">Pesquisar</button>
                             <a class="btn btn-warning btn-sm" href="{{ route('pedidos.list') }}">Limpar</a>
                         </div>
