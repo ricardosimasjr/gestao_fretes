@@ -30,6 +30,24 @@
                     <a class="nav-link disabled" href="{{ route('notas.list') }}">Notas</a>
                 </li>
             </ul>
+            <div class="d-flex">
+                <ul class="navbar-nav mb-lg-0 mb-2 me-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{{ route('user.logout') }}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
         </div>
     </div>
 </nav>
