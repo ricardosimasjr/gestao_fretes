@@ -20,7 +20,7 @@
             </div>
 
             <div class="card-body">
-                <form action="{{ route('pedidos.list')}}">
+                <form action="{{ route('pedidos.list') }}">
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <label class="form-label" for="cliente">Cliente</label>
@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-md-6 col-sm-12 mt-2 pt-4">
                             <button class="btn btn-info btn-sm" type="submit">Pesquisar</button>
-                            <a class="btn btn-warning btn-sm" href="{{ route('pedidos.list')}}">Limpar</a>
+                            <a class="btn btn-warning btn-sm" href="{{ route('pedidos.list') }}">Limpar</a>
                         </div>
                     </div>
                 </form>
@@ -39,30 +39,32 @@
     <div class="row">
         <table class="table table-striped table-responsive table-hover table-sm">
             <thead>
-              <tr>
-                <th scope="col">Data</th>
-                <th scope="col">Pedido</th>
-                <th scope="col">Cliente</th>
-              </tr>
+                <tr>
+                    <th scope="col">Data</th>
+                    <th scope="col">Pedido</th>
+                    <th scope="col">Cliente</th>
+                </tr>
             </thead>
             <tbody>
-              @foreach ($pedidos as $pedido)
-              <tr>
-                <td>{{ \Carbon\Carbon::parse($pedido->datapedido)->tz('America/Sao_Paulo')->format('d/m/Y') }}</td>
-                <td>{{$pedido->codigopedido}}</td>
-                <td>{{$pedido->nomecliente}}</td>
-                <td><a class="btn btn-info btn-sm" href="{{route('pedidos.show', ['pedido' => $pedido->id])}}">Exibir</a></td>
-                <td><a class="btn btn-warning btn-sm" href="{{route('pedidos.edit', ['pedido' => $pedido->id])}}">Editar</a></td>
-                <td><a class="btn btn-danger btn-sm" href="{{route('pedidos.destroy', ['pedido' => $pedido->id])}}">Excluir</a></td>
-                <td><a class="btn btn-success btn-sm" href="{{route('cotacoes.create', ['pedido' => $pedido->id])}}">Cotar</a></td>
-              </tr>
-              @endforeach
+                @foreach ($pedidos as $pedido)
+                    <tr>
+                        <td class="col-1">{{ \Carbon\Carbon::parse($pedido->datapedido)->tz('America/Sao_Paulo')->format('d/m/Y') }}</td>
+                        <td class="col-1">{{ $pedido->codigopedido }}</td>
+                        <td class="col-9">{{ $pedido->nomecliente }}</td>
+                        <td><a href="{{ route('pedidos.show', ['pedido' => $pedido->id]) }}"><img
+                                    src="{{ Vite::asset('resources/images/eye.svg') }}" width="20"></a></td>
+                        <td><a href="{{ route('pedidos.destroy', ['pedido' => $pedido->id]) }}"><img
+                                    src="{{ Vite::asset('resources/images/trash.svg') }}" width="20"></a></td>
+                        <td><a href="{{ route('cotacoes.create', ['pedido' => $pedido->id]) }}"><img
+                                    src="{{ Vite::asset('resources/images/cash.svg') }}" width="20"></a></td>
+                    </tr>
+                @endforeach
             </tbody>
-          </table>
+        </table>
     </div>
     <div class="container">
         <div class="row">
-            {{$pedidos->links()}}
+            {{ $pedidos->links() }}
         </div>
     </div>
 @endsection

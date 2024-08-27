@@ -17,6 +17,7 @@ class Cotacao extends Model
         'pedido_id',
         'codcotacao',
         'valor',
+        'winner',
     ];
 
     public function pedido()

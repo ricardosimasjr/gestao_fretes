@@ -212,4 +212,10 @@ class PedidoController extends Controller
 
         ds($pedidos);
     }
+
+    public function destroy(Pedido $pedido)
+    {
+        $pedido->destroy($pedido->id);
+        return redirect(route('pedidos.list'));
+    }
 }

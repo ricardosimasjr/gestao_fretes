@@ -45,6 +45,8 @@ Route::middleware('auth')->group(function () {
     Route::any('/cotacoes/create', [CotacaoController::class, 'create'])-> name('cotacoes.create');
     Route::post('/cotacoes/store', [CotacaoController::class, 'store'])-> name('cotacoes.store');
     Route::get('/cotacoes/show/{cotacao}', [CotacaoController::class, 'show'])-> name('cotacoes.show');
+    Route::get('/cotacoes/winner/{cotacao}', [CotacaoController::class, 'winner'])-> name('cotacoes.winner');
+    Route::any('/cotacoes/destroy/{cotacao}', [CotacaoController::class, 'destroy'])-> name('cotacoes.destroy');
 
     //Pedidos
 
@@ -55,7 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pedidos/edit', [PedidoController::class, 'edit'])-> name('pedidos.edit');
     Route::put('/pedidos/update', [PedidoController::class, 'update'])-> name('pedidos.update');
     Route::get('/pedidos/updatenota', [PedidoController::class, 'updateNota'])-> name('pedidos.updatenota');
-    Route::delete('/pedidos/destroy', [PedidoController::class, 'destroy'])-> name('pedidos.destroy');
+    Route::any('/pedidos/destroy/{pedido}', [PedidoController::class, 'destroy'])-> name('pedidos.destroy');
 
     //Notas
 

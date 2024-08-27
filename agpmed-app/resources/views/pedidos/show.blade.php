@@ -81,11 +81,11 @@
     </span>
     <hr>
     <div class="row">
-        <table class="table table-striped">
+        <table class="table table-striped table-responsive table-hover table-sm">
             <thead>
                 <tr>
                     <th scope="col">Data</th>
-                    <th scope="col">Id</th>
+
                     <th scope="col">Transportadora</th>
                     <th scope="col">Valor</th>
                 </tr>
@@ -93,10 +93,26 @@
             <tbody>
                 @foreach ($pedidos->cotacao as $cotacao)
                     <tr>
-                        <td>{{ \Carbon\Carbon::parse($cotacao->dataCotacao)->tz('America/Sao_Paulo')->format('d/m/Y') }}</td>
-                        <td>{{$cotacao->id }}</td>
-                        <td>{{$cotacao->transportador->nome}}</td>
-                        <td>{{ "R$" . number_format($cotacao->valor, 2, ',', '.') }}</td>
+                        <td class="col-1">
+                            {{ \Carbon\Carbon::parse($cotacao->dataCotacao)->tz('America/Sao_Paulo')->format('d/m/Y') }}
+                        </td>
+
+                        <td class="col-9">{{ $cotacao->transportador->nome }}</td>
+                        <td class="col-2">{{ "R$" . number_format($cotacao->valor, 2, ',', '.') }}</td>
+                        <td><a href="{{ route('pedidos.show', ['pedido' => $pedidos->id]) }}"><img
+                                    src="{{ Vite::asset('resources/images/eye.svg') }}" width="20"></a></td>
+                        <td><a href="{{ route('cotacoes.destroy', ['cotacao' => $cotacao->id]) }}"><img
+                                    src="{{ Vite::asset('resources/images/trash.svg') }}" width="20"></a></td>
+
+                        @if ($cotacao->winner == 1)
+                            <td><a href="{{ route('cotacoes.winner', ['cotacao' => $cotacao->id]) }}"><img
+                                        style="fill: green" src="{{ Vite::asset('resources/images/winner_green.svg') }}"
+                                        width="20"></a></td>
+                        @else
+                            <td><a href="{{ route('cotacoes.winner', ['cotacao' => $cotacao->id]) }}"><img
+                                        style="fill: green" src="{{ Vite::asset('resources/images/looser.svg') }}"
+                                        width="20"></a></td>
+                        @endif
 
                     </tr>
                 @endforeach
