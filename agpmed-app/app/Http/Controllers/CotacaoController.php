@@ -26,11 +26,28 @@ class CotacaoController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request);
+
+        //Formatando Campo Valor;
         $valor = $request->request->get('valor');
         $valorFinal = str_replace('.', '', $valor);
         $valorFinalFormat = str_replace(',', '.', $valorFinal);
         $request->request->set('valor', $valorFinalFormat);
+
+        //Formatando Campo Desconto
+        $vlr_desconto = $request->request->get('vlr_desconto');
+        $vlr_descontoFinal = str_replace('.', '', $vlr_desconto);
+        $vlr_descontoFormat = str_replace(',', '.', $vlr_descontoFinal);
+        $request->request->set('vlr_desconto', $vlr_descontoFormat);
+
+        //Tratando TDE
+        if(isset($cotacao->tx_dificulty)){
+
+        }
+        else
+        {
+            $request->request->set('tx_dificulty', 1);
+        }
+
         $cotacao = Cotacao::create($request->all());
         $cotacao->save();
         return redirect(route('pedidos.show', $request->pedido_id));
@@ -39,7 +56,7 @@ class CotacaoController extends Controller
     public function show (Cotacao $cotacao)
     {
         $cotacao = Cotacao::with('transportador')->find($cotacao->id);
-        dd($cotacao);
+        return view('cotacoes.show', ['cotacao' => $cotacao]);
     }
 
     public function winner (Cotacao $cotacao)

@@ -98,9 +98,12 @@
                         </td>
 
                         <td class="col-9">{{ $cotacao->transportador->nome }}</td>
+
                         <td class="col-2">{{ "R$" . number_format($cotacao->valor, 2, ',', '.') }}</td>
-                        <td><a href="{{ route('pedidos.show', ['pedido' => $pedidos->id]) }}"><img
+
+                        <td><a href="{{ route('cotacoes.show', ['cotacao' => $cotacao->id]) }}"><img
                                     src="{{ Vite::asset('resources/images/eye.svg') }}" width="20"></a></td>
+
                         <td><a href="{{ route('cotacoes.destroy', ['cotacao' => $cotacao->id]) }}"><img
                                     src="{{ Vite::asset('resources/images/trash.svg') }}" width="20"></a></td>
 

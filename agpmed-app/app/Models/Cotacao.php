@@ -18,6 +18,10 @@ class Cotacao extends Model
         'codcotacao',
         'valor',
         'winner',
+        'dt_previsao_entrega',
+        'vlr_desconto',
+        'tx_dificulty',
+        'obs',
     ];
 
     public function pedido()
