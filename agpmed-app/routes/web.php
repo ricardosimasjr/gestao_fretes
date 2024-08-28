@@ -7,6 +7,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\StatusController;
+use App\Models\Status;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -54,7 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::any('/pedidos/create', [PedidoController::class, 'create'])-> name('pedidos.create');
     Route::post('/pedidos/store', [PedidoController::class, 'store'])-> name('pedidos.store');
     Route::get('/pedidos/show/{pedido}', [PedidoController::class, 'show'])-> name('pedidos.show');
-    Route::get('/pedidos/edit', [PedidoController::class, 'edit'])-> name('pedidos.edit');
+    Route::get('/pedidos/edit/{pedido}', [PedidoController::class, 'edit'])-> name('pedidos.edit');
     Route::put('/pedidos/update', [PedidoController::class, 'update'])-> name('pedidos.update');
     Route::get('/pedidos/updatenota', [PedidoController::class, 'updateNota'])-> name('pedidos.updatenota');
     Route::any('/pedidos/destroy/{pedido}', [PedidoController::class, 'destroy'])-> name('pedidos.destroy');
@@ -68,6 +70,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/notas/edit', [NotaController::class, 'edit'])-> name('notas.edit');
     Route::put('/notas/update', [NotaController::class, 'update'])-> name('notas.update');
     Route::delete('/notas/destroy', [NotaController::class, 'destroy'])-> name('notas.destroy');
+
+    //Status
+
+    Route::get('/status', [StatusController::class, 'list'])-> name('status.list');
+    Route::any('/status/create', [StatusController::class, 'create'])-> name('status.create');
+    Route::post('/status/store', [StatusController::class, 'store'])-> name('status.store');
+    Route::get('/status/show/{status}', [StatusController::class, 'show'])-> name('status.show');
+    Route::get('/status/edit/{status}', [StatusController::class, 'edit'])-> name('status.edit');
+    Route::put('/status/update/{status}', [StatusController::class, 'update'])-> name('status.update');
+    Route::any('/status/destroy/{status}', [StatusController::class, 'destroy'])-> name('status.destroy');
 
 });
 

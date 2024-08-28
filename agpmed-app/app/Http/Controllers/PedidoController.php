@@ -209,6 +209,11 @@ class PedidoController extends Controller
         return view('pedidos.show', ['pedidos' => $pedido]);
     }
 
+    public function edit(Pedido $pedido)
+    {
+        return view('pedidos.edit', ['pedido' => $pedido]);
+    }
+
     public function updateNota()
     {
         $pedidos = Pedido::get('codigopedido');

@@ -22,8 +22,12 @@ return new class extends Migration
             $table->date('datapedido');
             $table->integer('volumes')->nullable();
             $table->float('peso', precision: 3)->nullable();
-            $table->float('cubagem', precision: 3)->nullable();
-            $table->string('status')->nullable();
+            $table->float('valor', precision: 3);
+            $table->date('dt_prev_entrega')->default(null)->nullable();
+            $table->boolean('bonificado')->default(0);
+            $table->float('vlr_cotado', precision:2)->default(null);
+            $table->string('nr_nota')->default(null);
+            $table->foreignId('status_id')->constrained('status')->default(null);
             $table->timestamps();
         });
     }

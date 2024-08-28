@@ -16,7 +16,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('transportador.list') }}">Transportadoras</a></li>
-                        <li><a class="dropdown-item disabled" href="#">Status</a></li>
+                        <li><a class="dropdown-item" href="{{route('status.list')}}">Status</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

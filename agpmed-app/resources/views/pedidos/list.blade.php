@@ -72,6 +72,8 @@
                         <td class="col-9">{{ $pedido->nomecliente }}</td>
                         <td><a href="{{ route('pedidos.show', ['pedido' => $pedido->id]) }}"><img
                                     src="{{ Vite::asset('resources/images/eye.svg') }}" width="20"></a></td>
+                        <td><a href="{{ route('pedidos.edit', ['pedido' => $pedido->id]) }}"><img
+                                    src="{{ Vite::asset('resources/images/edit.svg') }}" width="20"></a></td>
                         <td><a href="{{ route('pedidos.destroy', ['pedido' => $pedido->id]) }}"><img
                                     src="{{ Vite::asset('resources/images/trash.svg') }}" width="20"></a></td>
                         <td><a href="{{ route('cotacoes.create', ['pedido' => $pedido->id]) }}"><img

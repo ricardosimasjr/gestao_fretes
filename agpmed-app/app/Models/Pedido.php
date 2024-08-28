@@ -21,11 +21,21 @@ class Pedido extends Model
         'representantepedido',
         'volumes',
         'peso',
-        'valor'
+        'valor',
+        'vlr_cotado',
+        'nr_nota',
+        'bonificado',
+        'status',
+
     ];
 
     public function cotacao()
     {
         return $this->hasMany(Cotacao::class);
+    }
+
+    public function status()
+    {
+        return $this->hasOne(Status::class);
     }
 }

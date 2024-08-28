@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pedidos', function (Blueprint $table) {
-            $table->date('dt_prev_entrega')->default(null)->nullable();
-            $table->boolean('bonificado')->default(0);
-            $table->float('vlr_cotado', precision:2)->default(null);
-            $table->string('nr_nota')->default(null);
+        Schema::create('status', function (Blueprint $table) {
+            $table->id();
+            $table->string('status')->unique();
+            $table->timestamps();
         });
     }
 
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('status');
     }
 };

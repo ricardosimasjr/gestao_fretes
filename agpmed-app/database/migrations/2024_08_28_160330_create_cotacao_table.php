@@ -18,6 +18,12 @@ return new class extends Migration
             $table->foreignId('pedido_id')->constrained('pedidos');
             $table->float('valor', precision:2);
             $table->timestamps();
+            $table->string('codcotacao')->nullable();
+            $table->boolean('winner')->default(0);
+            $table->date('dt_previsao_entrega')->default(null)->nullable();
+            $table->float('vlr_desconto', precision:2)->nullable();
+            $table->boolean('tx_dificulty')->default(0);
+            $table->string('obs')->default(null)->nullable();
         });
     }
 
