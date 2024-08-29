@@ -96,9 +96,9 @@
             <div class="col-auto">
                 <label class="form-label" for="status">Status do Pedido</label>
                 <select class="form-select mb-3" id="status" name="status" style="background-color: antiquewhite" required>
-                    <option selected value="">{{ old('status', $sts->status) }}</option>
-                    @foreach ($status as $sts)
-                        <option value="{{ old('id', $pedido->id) }}">{{ old('status', $sts->status) }}</option>
+                    <option selected value="{{$pedido->status->id}}">{{$pedido->status->status}}</option>
+                    @foreach ($statusCollection as $status)
+                        <option value="{{ old('id', $status->id) }}">{{ old('status', $status->status) }}</option>
                     @endforeach
                 </select>
             </div>

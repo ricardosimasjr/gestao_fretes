@@ -19,15 +19,11 @@ class PedidoController extends Controller
 {
     public function list(Request $request)
     {
-
-        $pedido = Pedido::with('status')->get();
-        dd($pedido);
-
-        /*
         $pedidos = Pedido::when($request->has('cliente'), function ($whenQuery) use ($request) {
                 $whenQuery->where('nomecliente', 'like', '%' . $request->cliente . '%');
             })
             ->with('cotacao')
+            ->with('status')
             ->when($request->filled('dtini'), function ($whenQuery) use ($request) {
                 $whenQuery->where('datapedido', '>=', \Carbon\Carbon::parse($request->dtini)->format('Y-m-d'));
             })
@@ -37,7 +33,6 @@ class PedidoController extends Controller
             ->paginate(5)
             ->withQueryString();
 
-        dd($pedidos);
 
         return view('pedidos.list', [
             'pedidos' => $pedidos,
@@ -46,7 +41,6 @@ class PedidoController extends Controller
             'dtfin' => $request->dtfin,
 
         ]);
-        */
     }
 
     public function create(Request $request)
@@ -170,9 +164,6 @@ class PedidoController extends Controller
 
     public function store(Request $request)
     {
-
-
-
         $peso = $request->request->get('peso');
         //dd($peso);
 
@@ -223,7 +214,7 @@ class PedidoController extends Controller
 
         return view('pedidos.edit', [
             'pedido' => $pedido,
-            'status' => $status,
+            'statusCollection' => $status,
         ]);
     }
 

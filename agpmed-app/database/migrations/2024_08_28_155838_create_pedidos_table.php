@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('nr_nota')->default(null)->nullable();
             $table->string('pedido_compra')->default(null)->nullable();
             $table->string('comprovantes')->default(null)->nullable();
-            $table->foreignId('status_id')->constrained('status')->default(0);
+            $table->foreignId('status_id')->constrained('status')->default(null);
             $table->timestamps();
         });
     }
