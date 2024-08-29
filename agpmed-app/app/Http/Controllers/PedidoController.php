@@ -20,8 +20,7 @@ class PedidoController extends Controller
     public function list(Request $request)
     {
 
-        $pedido = Pedido::all()
-        ->with('cotacao');
+        $pedido = Pedido::with('status')->get();
         dd($pedido);
 
         /*
