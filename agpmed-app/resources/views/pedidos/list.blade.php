@@ -71,10 +71,12 @@
                         <td class="col-1">{{ $pedido->codigopedido }}</td>
                         <td class="col-9">{{ $pedido->nomecliente }}</td>
                         @if ($pedido->nr_nota == null)
+                            <td><a href=""><img src="" width="20"></a></td>
                         @else
-                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Nota Emitida!">
-                            <td><a href=""><img src="{{ Vite::asset('resources/images/nfe.svg') }}"
-                                        width="20"></a></td>
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover"
+                                data-bs-trigger="hover focus" data-bs-content="Nota Emitida!">
+                                <td><a href=""><img src="{{ Vite::asset('resources/images/nfe.svg') }}"
+                                            width="20"></a></td>
                         @endif
                         <td><a href="{{ route('pedidos.show', ['pedido' => $pedido->id]) }}"><img
                                     src="{{ Vite::asset('resources/images/eye.svg') }}" width="20"></a></td>
