@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cotacao;
 use App\Models\Pedido;
+use App\Models\Status;
 use App\Models\Transportador;
 use App\Services\ErpNomus\ErpNomusService;
 use Illuminate\Http\Request;
@@ -18,9 +19,15 @@ class PedidoController extends Controller
 {
     public function list(Request $request)
     {
+
+        $pedido = Pedido::all()
+        ->with('cotacao');
+        dd($pedido);
+
+        /*
         $pedidos = Pedido::when($request->has('cliente'), function ($whenQuery) use ($request) {
-            $whenQuery->where('nomecliente', 'like', '%' . $request->cliente . '%');
-        })
+                $whenQuery->where('nomecliente', 'like', '%' . $request->cliente . '%');
+            })
             ->with('cotacao')
             ->when($request->filled('dtini'), function ($whenQuery) use ($request) {
                 $whenQuery->where('datapedido', '>=', \Carbon\Carbon::parse($request->dtini)->format('Y-m-d'));
@@ -31,8 +38,7 @@ class PedidoController extends Controller
             ->paginate(5)
             ->withQueryString();
 
-
-
+        dd($pedidos);
 
         return view('pedidos.list', [
             'pedidos' => $pedidos,
@@ -41,6 +47,7 @@ class PedidoController extends Controller
             'dtfin' => $request->dtfin,
 
         ]);
+        */
     }
 
     public function create(Request $request)
@@ -209,16 +216,86 @@ class PedidoController extends Controller
         return view('pedidos.show', ['pedidos' => $pedido]);
     }
 
-    public function edit(Pedido $pedido)
+    public function edit(Pedido $pedido, Request $request)
     {
-        return view('pedidos.edit', ['pedido' => $pedido]);
+
+
+        $status = Status::get()->all();
+
+        return view('pedidos.edit', [
+            'pedido' => $pedido,
+            'status' => $status,
+        ]);
     }
 
-    public function updateNota()
+    public function update(Request $request, Pedido $pedido)
     {
-        $pedidos = Pedido::get('codigopedido');
+        $pedidoOriginal = Pedido::with('status')->find($request->id);
 
-        ds($pedidos);
+        $valor = $request->valor;
+        $valor = (str_replace('.', '', $valor));
+        $valorFinal = floatval(str_replace(',', '.', $valor));
+
+        $status = intval($request->status);
+
+
+        try {
+            $pedidoOriginal->updateOrFail([
+                'codigopedido' => $request->codigopedido,
+                'nr_nota' => $request->nota,
+                'cpfcnpj' => $request->cpfcnpj,
+                'nomecliente' => $request->nomecliente,
+                'ufcliente' => $request->ufcliente,
+                'datapedido' => $request->datapedido,
+                'vendedorpedido' => $request->vendedorpedido,
+                'representantepedido' => $request->representantepedido,
+                'volumes' => $request->volumes,
+                'peso' => $request->peso,
+                'valor' => $valorFinal,
+                'status_id' => $status,
+                'comprovantes' => $request->comprovantes,
+            ]);
+
+
+            return redirect(route('pedidos.list'));
+        } catch (\Throwable $e) {
+            dd($e);
+        }
+    }
+
+    public function updateNota(Request $request, Pedido $ped)
+    {
+        $pedido = $request->codigopedido;
+        if ($pedido == '') {
+            return view('pedidos.create');
+        } else {
+            //GET Pedido de Vendas - API Nomus
+
+            $servicePedidos = new ErpNomusService();
+            $return = $servicePedidos
+                ->pedidos()
+                ->get($pedido);
+            $json = $return->json();
+
+            if ($json[0]['nfes']) {
+                $nfe = $json[0]['nfes'][0]['numero'];
+            } else {
+                $nfe = null;
+            }
+
+            $id = $request->id;
+
+            $pedidoOriginal = Pedido::find($id);
+
+
+
+            //dd($pedidoOriginal);
+            $pedidoOriginal->updateOrFail([
+                'nr_nota' => $nfe,
+            ]);
+
+            return redirect(route('pedidos.edit', ['pedido' => $id]));
+        }
     }
 
     public function destroy(Pedido $pedido)

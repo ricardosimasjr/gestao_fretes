@@ -56,9 +56,10 @@ Route::middleware('auth')->group(function () {
     Route::any('/pedidos/create', [PedidoController::class, 'create'])-> name('pedidos.create');
     Route::post('/pedidos/store', [PedidoController::class, 'store'])-> name('pedidos.store');
     Route::get('/pedidos/show/{pedido}', [PedidoController::class, 'show'])-> name('pedidos.show');
-    Route::get('/pedidos/edit/{pedido}', [PedidoController::class, 'edit'])-> name('pedidos.edit');
+    Route::any('/pedidos/edit/{pedido}', [PedidoController::class, 'edit'])-> name('pedidos.edit');
+    Route::any('/pedidos/editnota/{pedido}', [PedidoController::class, 'editnota'])-> name('pedidos.editnota');
     Route::put('/pedidos/update', [PedidoController::class, 'update'])-> name('pedidos.update');
-    Route::get('/pedidos/updatenota', [PedidoController::class, 'updateNota'])-> name('pedidos.updatenota');
+    Route::any('/pedidos/updatenota/{pedido}', [PedidoController::class, 'updateNota'])-> name('pedidos.updatenota');
     Route::any('/pedidos/destroy/{pedido}', [PedidoController::class, 'destroy'])-> name('pedidos.destroy');
 
     //Notas

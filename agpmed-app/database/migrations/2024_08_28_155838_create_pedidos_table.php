@@ -25,9 +25,11 @@ return new class extends Migration
             $table->float('valor', precision: 3);
             $table->date('dt_prev_entrega')->default(null)->nullable();
             $table->boolean('bonificado')->default(0);
-            $table->float('vlr_cotado', precision:2)->default(null);
-            $table->string('nr_nota')->default(null);
-            $table->foreignId('status_id')->constrained('status')->default(null);
+            $table->float('vlr_cotado', precision:2)->default(0);
+            $table->string('nr_nota')->default(null)->nullable();
+            $table->string('pedido_compra')->default(null)->nullable();
+            $table->string('comprovantes')->default(null)->nullable();
+            $table->foreignId('status_id')->constrained('status')->default(0);
             $table->timestamps();
         });
     }

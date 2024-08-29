@@ -25,7 +25,7 @@ class Pedido extends Model
         'vlr_cotado',
         'nr_nota',
         'bonificado',
-        'status',
+        'status_id',
 
     ];
 
@@ -36,6 +36,6 @@ class Pedido extends Model
 
     public function status()
     {
-        return $this->hasOne(Status::class);
+        return $this->hasMany(Status::class);
     }
 }

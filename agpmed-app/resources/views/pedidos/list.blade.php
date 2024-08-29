@@ -14,7 +14,7 @@
                 <a class="btn btn-success" href="{{ route('pedidos.create') }}">Novo Pedido</a>
             </div>
         </div>
-        <div class="accordion mt-3" id="accordionExample">
+        <div class="accordion collapsed mt-3" id="accordionExample">
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
@@ -22,7 +22,7 @@
                         Pesquisar
                     </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <form action="{{ route('pedidos.list') }}">
 
@@ -70,6 +70,12 @@
                             {{ \Carbon\Carbon::parse($pedido->datapedido)->tz('America/Sao_Paulo')->format('d/m/Y') }}</td>
                         <td class="col-1">{{ $pedido->codigopedido }}</td>
                         <td class="col-9">{{ $pedido->nomecliente }}</td>
+                        @if ($pedido->nr_nota == null)
+                        @else
+                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Nota Emitida!">
+                            <td><a href=""><img src="{{ Vite::asset('resources/images/nfe.svg') }}"
+                                        width="20"></a></td>
+                        @endif
                         <td><a href="{{ route('pedidos.show', ['pedido' => $pedido->id]) }}"><img
                                     src="{{ Vite::asset('resources/images/eye.svg') }}" width="20"></a></td>
                         <td><a href="{{ route('pedidos.edit', ['pedido' => $pedido->id]) }}"><img

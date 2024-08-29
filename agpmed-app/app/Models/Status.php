@@ -15,6 +15,6 @@ class Status extends Model
 
     public function status()
     {
-        return $this->hasMany(Pedido::class);
+        return $this->belongsTo(Pedido::class);
     }
 }
