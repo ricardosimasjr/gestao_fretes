@@ -29,6 +29,7 @@ class Pedido extends Model
         'tipo_frete',
         'dt_prev_entrega',
         'comprovantes',
+        'pedido_compra'
     ];
 
     public function cotacao()

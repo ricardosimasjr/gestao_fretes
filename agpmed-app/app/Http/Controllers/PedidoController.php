@@ -63,7 +63,6 @@ class PedidoController extends Controller
             $json = $return->json();
 
 
-
             if (isset($json[0]))  # Caso o Request tenha um retorno válido
             {
                 # Informações do Pedido
@@ -74,6 +73,17 @@ class PedidoController extends Controller
                 $idPessoaVendedor = $json[0]['idPessoaVendedor'];
                 $dateFormat = \DateTime::createFromFormat('d/m/Y', $dataEmissao);
                 $dataPedido = $dateFormat->format('Y-m-d');
+
+                if(isset($json[0]['pedidoCompraCliente']))
+                {
+                    $pedido_compra = $json[0]['pedidoCompraCliente'];
+                }
+                else
+                {
+                    $pedido_compra = null;
+                }
+
+
 
                 if (isset($json[0]['parcelas'])) {
                     $parcelas = $json[0]['parcelas'];
@@ -152,7 +162,8 @@ class PedidoController extends Controller
                     'ufPessoa' => $ufPessoa,
                     'vendedor' => $vendedor,
                     'representante' => $representante,
-                    'valorTotalPedido' => $valorTotalPedido
+                    'valorTotalPedido' => $valorTotalPedido,
+                    'pedido_compra' => $pedido_compra,
                 ]);
             } else # Caso o Request tenha um retorno nulo
             {

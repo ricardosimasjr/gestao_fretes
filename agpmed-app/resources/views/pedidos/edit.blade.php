@@ -35,6 +35,11 @@
                     value="{{ old('pedido', $pedido->codigopedido) }}">
             </div>
             <div class="col-2 mb-3">
+                <label for="pedido_compra" class="form-label">Pedido de Compra</label>
+                <input type="text" class="form-control" id="pedido_compra" name="pedido_compra"
+                    value="{{ old('pedido', $pedido->pedido_compra) }}">
+            </div>
+            <div class="col-2 mb-3">
                 <label for="nota" class="form-label">NF-e</label>
                 <input type="text" class="form-control" id="nota" name="nota"
                     value="{{ old('nr_nota', $pedido->nr_nota) }}">
@@ -44,7 +49,7 @@
                 <input type="text" class="form-control" id="cpfcnpj" name="cpfcnpj"
                     value="{{ old('cpfcnpj', $pedido->cpfcnpj) }}">
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-4 mb-3">
                 <label for="nomecliente" class="form-label">Cliente</label>
                 <input type="text" class="form-control" id="nomecliente" name="nomecliente"
                     value="{{ old('cliente', $pedido->nomecliente) }}">

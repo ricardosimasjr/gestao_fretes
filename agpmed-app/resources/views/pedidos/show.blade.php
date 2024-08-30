@@ -21,6 +21,11 @@
             <input type="text" class="form-control" id="codigopedido" name="codigopedido"
                 value="{{ $pedidos->codigopedido }}" disabled>
         </div>
+        <div class="col-2 mb-3">
+            <label for="pedido_compra" class="form-label">Pedido de Compra</label>
+            <input type="text" class="form-control" id="pedido_compra" name="pedido_compra"
+                value="@if (isset($pedidos->pedido_compra)) {{ $pedidos->pedido_compra }} @endif" disabled>
+        </div>
         <div class="col-1 mb-3">
             <label for="nota" class="form-label">NF-e</label>
             <input type="text" class="form-control" id="nota" name="nota"
@@ -30,7 +35,7 @@
             <label for="cpfcnpj" class="form-label">Cpf/Cnpj</label>
             <input type="text" class="form-control" id="cpfcnpj" name="cpfcnpj" value="{{ $pedidos->cpfcnpj }}" disabled>
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-4 mb-3">
             <label for="nomecliente" class="form-label">Cliente</label>
             <input type="text" class="form-control" id="nomecliente" name="nomecliente"
                 value="{{ $pedidos->nomecliente }}" disabled>

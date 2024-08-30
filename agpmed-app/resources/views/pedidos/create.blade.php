@@ -33,12 +33,17 @@
                 <input type="text" class="form-control" id="codigopedido" name="codigopedido"
                     value="@if (isset($codigoPedido)) {{ $codigoPedido }} @endif">
             </div>
-            <div class="col-3 mb-3">
+            <div class="col-2 mb-3">
+                <label for="pedido_compra" class="form-label">Pedido de Compra</label>
+                <input type="text" class="form-control" id="pedido_compra" name="pedido_compra"
+                    value="@if (isset($pedido_compra)) {{ $pedido_compra }} @endif">
+            </div>
+            <div class="col-2 mb-3">
                 <label for="cpfcnpj" class="form-label">Cpf/Cnpj</label>
                 <input type="text" class="form-control" id="cpfcnpj" name="cpfcnpj"
                     value="@if (isset($cpf_cnpj)) {{ $cpf_cnpj }} @endif">
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-5 mb-3">
                 <label for="nomecliente" class="form-label">Cliente</label>
                 <input type="text" class="form-control" id="nomecliente" name="nomecliente"
                     value="@if (isset($nomePessoa)) {{ $nomePessoa }} @endif">
