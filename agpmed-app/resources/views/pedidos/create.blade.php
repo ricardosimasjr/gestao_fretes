@@ -85,6 +85,22 @@
 
                 </div>
             </div>
+            <div class="col-auto">
+                <label class="form-label" for="status">Tipo do Frete</label>
+                <select class="form-select mb-3" id="tipo_frete" name="tipo_frete" style="background-color: antiquewhite" required>
+                    <option selected value="">Selecione</option>
+                    <option  value="CIF">CIF</option>
+                    <option  value="FOB">FOB</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <label class="form-label" for="bonificado">Bonificação</label>
+                <select class="form-select mb-3" id="bonificado" name="bonificado" style="background-color: antiquewhite" required>
+                    <option selected value="">Selecione</option>
+                    <option  value="1">SIM</option>
+                    <option  value="0">NÃO</option>
+                </select>
+            </div>
 
         </div>
         <div class="row">

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('codcotacao')->nullable();
             $table->boolean('winner')->default(0);
             $table->date('dt_previsao_entrega')->default(null)->nullable();
-            $table->float('vlr_desconto', precision:2)->nullable();
+            $table->float('vlr_desconto', precision:2)->nullable()->default(0);
             $table->boolean('tx_dificulty')->default(0);
             $table->string('obs')->default(null)->nullable();
         });

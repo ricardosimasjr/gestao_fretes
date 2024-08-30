@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Transportador;
 use App\Models\Cotacao;
+use App\Models\Pedido;
 use App\Models\User;
 use App\Services\ErpNomus\ErpNomusService;
 
@@ -34,10 +35,22 @@ class CotacaoController extends Controller
         $request->request->set('valor', $valorFinalFormat);
 
         //Formatando Campo Desconto
+
         $vlr_desconto = $request->request->get('vlr_desconto');
-        $vlr_descontoFinal = str_replace('.', '', $vlr_desconto);
-        $vlr_descontoFormat = str_replace(',', '.', $vlr_descontoFinal);
-        $request->request->set('vlr_desconto', $vlr_descontoFormat);
+        if($vlr_desconto == null)
+        {
+            $vlr_descontoFormat = 0.00;
+            $request->request->set('vlr_desconto', $vlr_descontoFormat);
+        }
+        else
+        {
+            $vlr_descontoFinal = str_replace('.', '', $vlr_desconto);
+            $vlr_descontoFormat = str_replace(',', '.', $vlr_descontoFinal);
+            $request->request->set('vlr_desconto', $vlr_descontoFormat);
+        }
+
+
+
 
         //Tratando TDE
         if(isset($cotacao->tx_dificulty)){
@@ -59,18 +72,40 @@ class CotacaoController extends Controller
         return view('cotacoes.show', ['cotacao' => $cotacao]);
     }
 
-    public function winner (Cotacao $cotacao)
+    public function winner (Cotacao $cotacao, Pedido $ped)
     {
+        $pedido_id = $cotacao->pedido_id;
+        $pedido = Pedido::find($pedido_id);
+
+
         if($cotacao->winner == 0)
         {
-            $cotacao->update([
+            $cotacao->updateOrFail([
                 'winner' => 1
             ]);
+
+            $pedido->updateOrFail([
+                'dt_prev_entrega' => $cotacao->dt_previsao_entrega,
+            ]);
+
+            $pedido->updateOrFail([
+                'vlr_cotado' => $cotacao->valor,
+            ]);
+
+
         }
         else
         {
-            $cotacao->update([
+            $cotacao->updateOrFail([
                 'winner' => 0
+            ]);
+
+            $pedido->updateOrFail([
+                'dt_prev_entrega' => null,
+            ]);
+
+            $pedido->updateOrFail([
+                'vlr_cotado' => null,
             ]);
         }
 

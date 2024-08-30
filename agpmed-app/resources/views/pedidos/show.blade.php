@@ -79,6 +79,10 @@
                 <div class="input-group-text">Kg</div>
             </div>
         </div>
+        <div class="col-1 mb-3">
+            <label for="tipofrete" class="form-label">Tipo Frete</label>
+            <input type="text" class="form-control" id="tipofrete" name="tipofrete" value="{{ $pedidos->tipo_frete }}" disabled>
+        </div>
     </div>
     <hr>
     <span>
@@ -90,6 +94,8 @@
             <thead>
                 <tr>
                     <th scope="col">Data</th>
+                    <th scope="col">Previsao</th>
+                    <th scope="col">C. Cotacão</th>
 
                     <th scope="col">Transportadora</th>
                     <th scope="col">Valor</th>
@@ -101,8 +107,21 @@
                         <td class="col-1">
                             {{ \Carbon\Carbon::parse($cotacao->dataCotacao)->tz('America/Sao_Paulo')->format('d/m/Y') }}
                         </td>
+                        <td class="col-1">
+                            {{ \Carbon\Carbon::parse($cotacao->dt_previsao_entrega)->tz('America/Sao_Paulo')->format('d/m/Y') }}
+                        </td>
+                        <td class="col-1">
+                            {{$cotacao->codcotacao}}
+                        </td>
 
-                        <td class="col-9">{{ $cotacao->transportador->nome }}</td>
+                        <td class="col-9">{{ $cotacao->transportador->nome }}
+                            @if ($cotacao->tx_dificulty)
+                            <img src="{{ Vite::asset('resources/images/tde.svg')}}" width="20">
+                            @else
+
+                            @endif
+
+                        </td>
 
                         <td class="col-2">{{ "R$" . number_format($cotacao->valor, 2, ',', '.') }}</td>
 
@@ -113,11 +132,11 @@
                                     src="{{ Vite::asset('resources/images/trash.svg') }}" width="20"></a></td>
 
                         @if ($cotacao->winner == 1)
-                            <td><a href="{{ route('cotacoes.winner', ['cotacao' => $cotacao->id]) }}"><img
+                            <td><a href="{{ route('cotacoes.winner', ['cotacao' => $cotacao->id, 'pedido' => $pedidos->id]) }}"><img
                                         style="fill: green" src="{{ Vite::asset('resources/images/winner_green.svg') }}"
                                         width="20"></a></td>
                         @else
-                            <td><a href="{{ route('cotacoes.winner', ['cotacao' => $cotacao->id]) }}"><img
+                            <td><a href="{{ route('cotacoes.winner', ['cotacao' => $cotacao->id, 'pedido' => $pedidos->id]) }}"><img
                                         style="fill: green" src="{{ Vite::asset('resources/images/looser.svg') }}"
                                         width="20"></a></td>
                         @endif

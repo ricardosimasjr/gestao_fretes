@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 16 16">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: red;
+        stroke-miterlimit: 10;
+        stroke-width: .8px;
+      }
+
+      .cls-2 {
+        fill: red;
+        font-family: Gilroy-ExtraBold, Gilroy;
+        font-size: 6.2px;
+        font-weight: 700;
+      }
+
+      .cls-2, .cls-3 {
+        isolation: isolate;
+      }
+    </style>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.6.0, SVG Export Plug-In . SVG Version: 1.2.0 Build 709)  -->
+  <g>
+    <g id="Camada_1">
+      <g id="Camada_1-2" data-name="Camada_1">
+        <g class="cls-3">
+          <text class="cls-2" transform="translate(2.4 10)"><tspan x="0" y="0">TDE</tspan></text>
+        </g>
+      </g>
+      <ellipse class="cls-1" cx="8" cy="7.9" rx="7.6" ry="6.1"/>
+    </g>
+  </g>
+</svg>

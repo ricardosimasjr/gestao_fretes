@@ -24,6 +24,9 @@ class PedidoController extends Controller
             })
             ->with('cotacao')
             ->with('status')
+            ->when($request->filled('vendedor'), function ($whenQuery) use ($request) {
+                $whenQuery->where('vendedorpedido', 'like', '%' . $request->vendedor . '%');
+            })
             ->when($request->filled('dtini'), function ($whenQuery) use ($request) {
                 $whenQuery->where('datapedido', '>=', \Carbon\Carbon::parse($request->dtini)->format('Y-m-d'));
             })
@@ -37,6 +40,7 @@ class PedidoController extends Controller
         return view('pedidos.list', [
             'pedidos' => $pedidos,
             'cliente' => $request->cliente,
+            'vendedor' =>$request->vendedor,
             'dtini' => $request->dtini,
             'dtfin' => $request->dtfin,
 
@@ -220,7 +224,19 @@ class PedidoController extends Controller
 
     public function update(Request $request, Pedido $pedido)
     {
+        $file = $request->file('comprovantes');
+
+
         $pedidoOriginal = Pedido::with('status')->find($request->id);
+
+        if($file)
+        {
+            $comprovante = $file->store('comprovantes');
+        }
+        else
+        {
+            $comprovante = null;
+        }
 
         $valor = $request->valor;
         $valor = (str_replace('.', '', $valor));
@@ -243,7 +259,8 @@ class PedidoController extends Controller
                 'peso' => $request->peso,
                 'valor' => $valorFinal,
                 'status_id' => $status,
-                'comprovantes' => $request->comprovantes,
+                'comprovantes' => $comprovante,
+                'tipo_frete' => $request->tipo_frete,
             ]);
 
 

@@ -26,7 +26,9 @@ class Pedido extends Model
         'nr_nota',
         'bonificado',
         'status_id',
-
+        'tipo_frete',
+        'dt_prev_entrega',
+        'comprovantes',
     ];
 
     public function cotacao()
