@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('pedido_compra')->default(null)->nullable();
             $table->string('comprovantes')->default(null)->nullable();
             $table->foreignId('status_id')->constrained('status')->default(null);
+            $table->string('tipo_frete');
             $table->timestamps();
         });
     }
