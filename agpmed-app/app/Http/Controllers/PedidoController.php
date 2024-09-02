@@ -137,7 +137,6 @@ class PedidoController extends Controller
 
                 # Informações do Representante
 
-
                 if (isset($dadosPedido['idPessoaRepresentante'])) {
                     $idPessoaRepresentante = $dadosPedido['idPessoaRepresentante'];
                     $serviceRepresentante = new ErpNomusService();
@@ -151,7 +150,6 @@ class PedidoController extends Controller
                 }
 
                 # Retorno da Função
-                //dd($dataPedido);
                 return view('pedidos.create', [
                     'codigoPedido' => $codigoPedido,
                     'dataPedido' => $dataPedido,
@@ -180,7 +178,7 @@ class PedidoController extends Controller
     public function store(Request $request)
     {
         $peso = $request->request->get('peso');
-        //dd($peso);
+
 
         if ($peso == null) {
             $peso = 0;
@@ -195,6 +193,7 @@ class PedidoController extends Controller
         $valorFinal = str_replace('.', '', $valor);
         $valorFinalFormat = str_replace(',', '.', $valorFinal);
         $request->request->set('valor', $valorFinalFormat);
+        $request->request->set('status_id', 1);
         //dd($request);
 
         try {
