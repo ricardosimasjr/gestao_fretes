@@ -220,6 +220,14 @@ class PedidoController extends Controller
         return view('pedidos.show', ['pedidos' => $pedido]);
     }
 
+    public function showComprovante(Pedido $pedido)
+    {
+        $pedido = Pedido::with('cotacao.transportador')
+            ->find($pedido->id);
+
+        return view('pedidos.showcomprovante', ['pedidos' => $pedido]);
+    }
+
     public function edit(Pedido $pedido, Request $request)
     {
 

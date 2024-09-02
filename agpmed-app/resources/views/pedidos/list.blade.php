@@ -97,7 +97,7 @@
                             @if ($pedido->comprovantes == null)
                                 <img src="" width="20">
                             @else
-                                <a href="{{ url("storage/{$pedido->comprovantes}") }}" target="_blank"><img
+                                <a href="{{ asset("storage/{$pedido->comprovantes}")}}" target="_blank"><img
                                         src="{{ Vite::asset('resources/images/file.svg') }}" width="20"></a>
                             @endif
                             @if ($pedido->status_id == 1)

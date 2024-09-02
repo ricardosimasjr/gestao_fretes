@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::any('/pedidos/create', [PedidoController::class, 'create'])-> name('pedidos.create');
     Route::post('/pedidos/store', [PedidoController::class, 'store'])-> name('pedidos.store');
     Route::get('/pedidos/show/{pedido}', [PedidoController::class, 'show'])-> name('pedidos.show');
+    Route::get('/pedidos/showcomprovante/{pedido}', [PedidoController::class, 'showComprovante'])-> name('pedidos.showComprovante');
     Route::any('/pedidos/edit/{pedido}', [PedidoController::class, 'edit'])-> name('pedidos.edit');
     Route::any('/pedidos/editnota/{pedido}', [PedidoController::class, 'editnota'])-> name('pedidos.editnota');
     Route::put('/pedidos/update', [PedidoController::class, 'update'])-> name('pedidos.update');
