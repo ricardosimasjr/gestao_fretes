@@ -8,5 +8,5 @@ Alpine.start();
 
 import.meta.glob([
     '../images/**',
-    '../storage/comprovantes/**',
+    '../storage/app/public/comprovantes/**',
 ]);
