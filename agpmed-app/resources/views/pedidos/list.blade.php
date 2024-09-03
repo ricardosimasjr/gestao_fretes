@@ -100,11 +100,8 @@
                                 <a href="{{ route('pedidos.showComprovante', ['pedido' => $pedido->id])}}" target="_blank"><img
                                         src="{{ Vite::asset('resources/images/file.svg') }}" width="20"></a>
                             @endif
-                            @if ($pedido->status_id == 1)
-                                <span class="badge rounded-pill text-bg-secondary">Aguardando Coleta</span>
-                            @endif
-                            @if ($pedido->status_id == 2)
-                                <span class="badge rounded-pill text-bg-success">Entregue</span>
+                            @if ($pedido->status_id != null)
+                                <span class="badge rounded-pill text-bg-secondary">{{$pedido->status->status}}</span>
                             @endif
                         </td>
                         <td><a href="{{ route('pedidos.show', ['pedido' => $pedido->id]) }}"><img

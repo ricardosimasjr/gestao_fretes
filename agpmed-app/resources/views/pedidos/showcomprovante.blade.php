@@ -84,7 +84,7 @@
                 <div class="input-group-text">Kg</div>
             </div>
         </div>
-        <div class="col-1 mb-3">
+        <div class="col-2 mb-3">
             <label for="tipofrete" class="form-label">Tipo Frete</label>
             <input type="text" class="form-control" id="tipofrete" name="tipofrete" value="{{ $pedidos->tipo_frete }}" disabled>
         </div>
