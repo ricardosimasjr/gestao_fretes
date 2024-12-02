@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\RomaneioController;
 use App\Http\Controllers\StatusController;
 use App\Models\Status;
 use Illuminate\Support\Facades\Route;
@@ -82,6 +83,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/status/edit/{status}', [StatusController::class, 'edit'])-> name('status.edit');
     Route::put('/status/update/{status}', [StatusController::class, 'update'])-> name('status.update');
     Route::any('/status/destroy/{status}', [StatusController::class, 'destroy'])-> name('status.destroy');
+
+    //Romaneios
+
+    Route::get('/romaneios', [RomaneioController::class, 'list'])-> name('romaneios.list');
+    Route::any('/romaneios/create', [RomaneioController::class, 'create'])-> name('romaneios.create');
+    Route::post('/romaneios/store', [RomaneioController::class, 'store'])-> name('romaneios.store');
+    Route::get('/romaneios/show/{romaneio}', [RomaneioController::class, 'show'])-> name('romaneios.show');
+    Route::get('/romaneios/edit/{romaneio}', [RomaneioController::class, 'edit'])-> name('romaneios.edit');
+    Route::put('/romaneios/update/{romaneio}', [RomaneioController::class, 'update'])-> name('romaneios.update');
+    Route::any('/romaneios/destroy/{romaneio}', [RomaneioController::class, 'destroy'])-> name('romaneios.destroy');
 
 });
 

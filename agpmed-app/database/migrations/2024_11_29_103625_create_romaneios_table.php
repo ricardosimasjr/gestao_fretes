@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('romaneios', function (Blueprint $table) {
             $table->id();
+            $table->date('data');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('transportador_id')->constrained('transportadores');
+            $table->foreignId('nota_id')->constrained('notas');
             $table->timestamps();
         });
     }
