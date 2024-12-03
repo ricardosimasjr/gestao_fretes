@@ -29,6 +29,9 @@
                 <li class="nav-item">
                     <a class="nav-link disabled" href="{{ route('notas.list') }}">Notas</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('romaneios.list') }}">Romaneios</a>
+                </li>
             </ul>
             <div class="d-flex">
                 <ul class="navbar-nav mb-lg-0 mb-2 me-auto">

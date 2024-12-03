@@ -11,7 +11,7 @@
                 <h3>Romaneios</h3>
             </div>
             <div class="col-6 text-end">
-                <a class="btn btn-success" href="{{ route('pedidos.create') }}">Novo Pedido</a>
+                <a class="btn btn-success" href="{{ route('pedidos.create') }}">Novo Romaneio</a>
             </div>
         </div>
         <div class="accordion collapsed mt-3" id="accordionExample">
@@ -24,28 +24,28 @@
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <form action="{{ route('pedidos.list') }}">
+                        <form action="{{ route('romaneios.list') }}">
 
                             <div class="row">
                                 <div class="col-md-4 col-sm-12">
-                                    <label class="form-label" for="cliente">Cliente</label>
-                                    <input class="form-control" type="text" name="cliente" id="cliente"
-                                        value="{{ $cliente }}">
+                                    <label class="form-label" for="transportadora">Transportadora</label>
+                                    <input class="form-control" type="text" name="transportadora" id="transportadora"
+                                        value="">
                                 </div>
                                 <div class="col-md-4 col-sm-12">
-                                    <label class="form-label" for="vendedor">Vendedor</label>
-                                    <input class="form-control" type="text" name="vendedor" id="vendedor"
-                                        value="{{ $vendedor }}">
+                                    <label class="form-label" for="usuario">Responsável</label>
+                                    <input class="form-control" type="text" name="usuario" id="usuario"
+                                        value="">
                                 </div>
                                 <div class="col-md-2 col-sm-12">
                                     <label class="form-label" for="dtini">Data Inicial</label>
                                     <input class="form-control" type="date" name="dtini" id="dtini"
-                                        value="{{ $dtini }}">
+                                        value="">
                                 </div>
                                 <div class="col-md-2 col-sm-12">
                                     <label class="form-label" for="dtfin">Data Final</label>
                                     <input class="form-control" type="date" name="dtfin" id="dtfin"
-                                        value="{{ $dtfin }}">
+                                        value="">
                                 </div>
                                 <div class="col-md-4 col-sm-12 mt-2 pt-4">
                                     <button class="btn btn-info btn-sm" type="submit">Pesquisar</button>
@@ -70,7 +70,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($pedidos as $pedido)
+                {{-- @foreach ()
                     <tr>
                         <td class="col-1">
                             {{ \Carbon\Carbon::parse($pedido->datapedido)->tz('America/Sao_Paulo')->format('d/m/Y') }}
@@ -113,13 +113,13 @@
                         <td><a href="{{ route('cotacoes.create', ['pedido' => $pedido->id]) }}"><img
                                     src="{{ Vite::asset('resources/images/cash.svg') }}" width="20"></a></td>
                     </tr>
-                @endforeach
+                @endforeach --}}
             </tbody>
         </table>
     </div>
     <div class="container">
         <div class="row">
-            {{ $pedidos->links() }}
+
         </div>
     </div>
 @endsection
