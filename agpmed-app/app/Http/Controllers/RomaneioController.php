@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Romaneio;
+use App\Models\Transportador;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -16,10 +17,16 @@ class RomaneioController extends Controller
 
     public function create()
     {
+
+        $transportadoras = Transportador::get();
+        // dd($transportadoras);
         $today = Carbon::today();
         // dd($today->format('Y-m-d'));
         $formatToday = $today->format('Y-m-d');
-        return view('romaneios.create', ['today' => $formatToday]);
+        return view('romaneios.create', [
+            'today' => $formatToday,
+            'transportadoras' => $transportadoras,
+        ]);
 
     }
 
