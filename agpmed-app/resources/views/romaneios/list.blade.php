@@ -11,7 +11,7 @@
                 <h3>Romaneios</h3>
             </div>
             <div class="col-6 text-end">
-                <a class="btn btn-success" href="{{ route('pedidos.create') }}">Novo Romaneio</a>
+                <a class="btn btn-success" href="{{ route('romaneios.create') }}">Novo Romaneio</a>
             </div>
         </div>
         <div class="accordion collapsed mt-3" id="accordionExample">

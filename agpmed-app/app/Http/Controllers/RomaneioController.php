@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Romaneio;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RomaneioController extends Controller
@@ -15,7 +16,11 @@ class RomaneioController extends Controller
 
     public function create()
     {
-        //
+        $today = Carbon::today();
+        // dd($today->format('Y-m-d'));
+        $formatToday = $today->format('Y-m-d');
+        return view('romaneios.create', ['today' => $formatToday]);
+
     }
 
     public function store(Request $request)
