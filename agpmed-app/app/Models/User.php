@@ -49,4 +49,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Cotacao::class);
     }
+
+    public function romaneio(){
+        return $this->hasMany(Romaneio::class);
+    }
 }

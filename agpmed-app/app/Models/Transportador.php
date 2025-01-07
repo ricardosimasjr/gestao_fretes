@@ -19,4 +19,9 @@ class Transportador extends Model
     {
         return $this->hasMany(Cotacao::class);
     }
+
+    public function romaneio()
+    {
+        return $this->hasMany(Romaneio::class);
+    }
 }

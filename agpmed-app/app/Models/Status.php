@@ -17,4 +17,9 @@ class Status extends Model
     {
         return $this->hasMany(Pedido::class);
     }
+
+    public function romaneio()
+    {
+        return $this->hasMany(Romaneio::class);
+    }
 }

@@ -18,29 +18,62 @@
     <form action="{{ route('romaneios.store') }}" method="post">
         @csrf
         <div class="row">
-            <div class="col-6 mb-3">
-                <label for="transportadores" class="form-label">Transportadores</label>
-                <select class="form-select select2" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
+            <div class="col-8 mb-3">
+                <label for="transportador_id" class="form-label">Transportadores</label>
+                <select class="form-select select2" aria-label="Default select example" id="transportador_id"
+                    name="transportador_id" required>
+                    <option value="" selected>Selecione a Transportadora</option>
                     @foreach ($transportadoras as $transportador)
-                    <option value="{{$transportador->id}}">{{$transportador->nome}}</option>
+                        <option value="{{ $transportador->id }}">{{ $transportador->nome }}</option>
                     @endforeach
-                  </select>
+                </select>
             </div>
             <div class="col-2 mb-3">
-                <label for="dataromaneio" class="form-label">Data Romaneio</label>
-                <input type="date" class="form-control" id="dataromaneio" name="dataromaneio"
-                    value="{{ $today }}">
+                <label for="data" class="form-label">Data Romaneio</label>
+                <input type="date" class="form-control" id="data" name="data" value="{{ $today }}">
+            </div>
+            <div class="col-2 mb-3">
+                <label for="datahoracoleta" class="form-label">Data/Hora Coleta</label>
+                <input type="datetime" class="form-control" id="datahoracoleta" name="datahoracoleta">
+            </div>
+
+            <div>
+                <input type="text" class="form-control" id="user_id" name="user_id" value="{{ Auth::user()->id }}"
+                    hidden>
+                <input type="text" class="form-control" id="status_id" name="status_id" value="1"
+                    hidden>
             </div>
         </div>
         <div class="row">
+            <div class="col-6 mb-3">
+                <label for="motorista" class="form-label">Motorista/Ajudante</label>
+                <input type="text" class="form-control" id="motorista" name="motorista">
+            </div>
+            <div class="col-3 mb-3">
+                <label for="tipo_ident" class="form-label">Tipo Documento</label>
+                <select class="form-select select2" id="tipo_ident" name="tipo_ident">
+                    <option value="" selected>Selecione o Documento</option>
+                    <option value="CPF">CPF - Cadastro de Pessoa Física</option>
+                    <option value="CNH">CNH - Carteira Nacional de Habilitação</option>
+                    <option value="ID">ID - Carteira de Identidade</option>
+                    <option value="CTPS">CTPS - Carteira de Trabalho</option>
+                </select>
+            </div>
+            <div class="col-3 mb-3">
+                <label for="identificacao" class="form-label">Nº Documento</label>
+                <input type="text" class="form-control" id="identificacao" name="identificacao">
+            </div>
+            <div class="col-12 mb-3">
+                <label for="obs" class="form-label">Observações</label>
+                <textarea type="text" class="form-control" id="obs" name="obs" rows="3"></textarea>
+            </div>
             <div class="mb-3 mt-3">
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </div>
         </div>
     </form>
     <script>
-        $(function () {
+        $(function() {
             $('.select2').select2({
                 theme: 'bootstrap-5'
             });

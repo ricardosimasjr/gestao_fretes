@@ -34,18 +34,15 @@
                                 </div>
                                 <div class="col-md-4 col-sm-12">
                                     <label class="form-label" for="usuario">Responsável</label>
-                                    <input class="form-control" type="text" name="usuario" id="usuario"
-                                        value="">
+                                    <input class="form-control" type="text" name="usuario" id="usuario" value="">
                                 </div>
                                 <div class="col-md-2 col-sm-12">
                                     <label class="form-label" for="dtini">Data Inicial</label>
-                                    <input class="form-control" type="date" name="dtini" id="dtini"
-                                        value="">
+                                    <input class="form-control" type="date" name="dtini" id="dtini" value="">
                                 </div>
                                 <div class="col-md-2 col-sm-12">
                                     <label class="form-label" for="dtfin">Data Final</label>
-                                    <input class="form-control" type="date" name="dtfin" id="dtfin"
-                                        value="">
+                                    <input class="form-control" type="date" name="dtfin" id="dtfin" value="">
                                 </div>
                                 <div class="col-md-4 col-sm-12 mt-2 pt-4">
                                     <button class="btn btn-info btn-sm" type="submit">Pesquisar</button>
@@ -64,56 +61,32 @@
             <thead>
                 <tr>
                     <th scope="col">Data</th>
-                    <th scope="col">Previsão</th>
-                    <th scope="col">Pedido</th>
-                    <th scope="col">Cliente</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Transportadora</th>
+                    <th scope="col">Status</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ()
-                    <tr>
-                        <td class="col-1">
-                            {{ \Carbon\Carbon::parse($pedido->datapedido)->tz('America/Sao_Paulo')->format('d/m/Y') }}
-                        </td>
-                        <td class="col-1">
-                            @if ($pedido->dt_prev_entrega == null)
-                                -
-                            @else
-                                {{ \Carbon\Carbon::parse($pedido->dt_prev_entrega)->tz('America/Sao_Paulo')->format('d/m/Y') }}
-                            @endif
-                        </td>
-                        <td class="col-1">{{ $pedido->codigopedido }}</td>
-                        <td class="col-9">{{ $pedido->nomecliente }}
-                            @if ($pedido->bonificado == 0)
-                                <img src="" width="20">
-                            @else
-                                <img src="{{ Vite::asset('resources/images/bonif.svg') }}" width="20">
-                            @endif
-                            @if ($pedido->nr_nota == null)
-                                <img src="" width="20">
-                            @else
-                                <img src="{{ Vite::asset('resources/images/nfe.svg') }}" width="20">
-                            @endif
-                            @if ($pedido->comprovantes == null)
-                                <img src="" width="20">
-                            @else
-                                <a href="{{ route('pedidos.showComprovante', ['pedido' => $pedido->id])}}" target="_blank"><img
-                                        src="{{ Vite::asset('resources/images/file.svg') }}" width="20"></a>
-                            @endif
-                            @if ($pedido->status_id != null)
-                                <span class="badge rounded-pill text-bg-secondary">{{$pedido->status->status}}</span>
-                            @endif
-                        </td>
-                        <td><a href="{{ route('pedidos.show', ['pedido' => $pedido->id]) }}"><img
-                                    src="{{ Vite::asset('resources/images/eye.svg') }}" width="20"></a></td>
-                        <td><a href="{{ route('pedidos.edit', ['pedido' => $pedido->id]) }}"><img
-                                    src="{{ Vite::asset('resources/images/edit.svg') }}" width="20"></a></td>
-                        <td><a href="{{ route('pedidos.destroy', ['pedido' => $pedido->id]) }}"><img
-                                    src="{{ Vite::asset('resources/images/trash.svg') }}" width="20"></a></td>
-                        <td><a href="{{ route('cotacoes.create', ['pedido' => $pedido->id]) }}"><img
-                                    src="{{ Vite::asset('resources/images/cash.svg') }}" width="20"></a></td>
-                    </tr>
-                @endforeach --}}
+                @isset($romaneios)
+                    @foreach ($romaneios as $romaneio)
+                        <tr>
+                            <td class="col-1">
+                                {{ \Carbon\Carbon::parse($romaneio->data)->tz('America/Sao_Paulo')->format('d/m/Y') }}
+                            </td>
+                            <td class="col-1">{{ $romaneio->id }}</td>
+                            <td class="col-3">{{ $romaneio->transportador->nome }}</td>
+                            <td class="col-9">{{ $romaneio->status->status }}</td>
+                            <td><a href="{{ route('romaneios.show', ['romaneio' => $romaneio->id]) }}"><img
+                                        src="{{ Vite::asset('resources/images/eye.svg') }}" width="20"></a></td>
+                            <td><a href="{{ route('romaneios.edit', ['romaneio' => $romaneio->id]) }}"><img
+                                        src="{{ Vite::asset('resources/images/edit.svg') }}" width="20"></a></td>
+                            <td><a href="{{ route('romaneios.destroy', ['romaneio' => $romaneio->id]) }}"><img
+                                        src="{{ Vite::asset('resources/images/trash.svg') }}" width="20"></a></td>
+                            <td><a href="{{ route('romaneios.create', ['romaneio' => $romaneio->id]) }}"><img
+                                        src="{{ Vite::asset('resources/images/cash.svg') }}" width="20"></a></td>
+                        </tr>
+                    @endforeach
+                @endisset
             </tbody>
         </table>
     </div>

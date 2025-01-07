@@ -16,7 +16,17 @@ return new class extends Migration
             $table->date('data');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('transportador_id')->constrained('transportadores');
-            $table->foreignId('nota_id')->constrained('notas');
+            $table->foreignId('status_id')->constrained('status')->default(null);
+            $table->text('motorista')->nullable();
+            $table->text('placa')->nullable();
+            $table->text('tipo_ident')->nullable();
+            $table->text('identificacao')->nullable();
+            $table->date('datahoracoleta')->nullable();
+            $table->text('assinatura')->nullable();
+            $table->longText('obs')->nullable();
+
+
+
             $table->timestamps();
         });
     }
