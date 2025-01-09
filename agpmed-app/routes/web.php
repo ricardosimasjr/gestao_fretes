@@ -6,9 +6,11 @@ use App\Http\Controllers\CotacaoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotaController;
+use App\Http\Controllers\NotaRomaneioController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\RomaneioController;
 use App\Http\Controllers\StatusController;
+use App\Models\NotaRomaneio;
 use App\Models\Status;
 use Illuminate\Support\Facades\Route;
 
@@ -68,7 +70,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/notas', [NotaController::class, 'list'])-> name('notas.list');
     Route::any('/notas/create', [NotaController::class, 'create'])-> name('notas.create');
+    Route::any('/notasromaneio/create', [NotaController::class, 'createromaneio'])-> name('notas.createromaneio');
     Route::post('/notas/store', [NotaController::class, 'store'])-> name('notas.store');
+    Route::post('/notas/storeromaneio', [NotaController::class, 'storeromaneio'])-> name('notas.storeromaneio');
     Route::get('/notas/show/{nota}', [NotaController::class, 'show'])-> name('notas.show');
     Route::get('/notas/edit', [NotaController::class, 'edit'])-> name('notas.edit');
     Route::put('/notas/update', [NotaController::class, 'update'])-> name('notas.update');
@@ -94,6 +98,24 @@ Route::middleware('auth')->group(function () {
     Route::put('/romaneios/update/{romaneio}', [RomaneioController::class, 'update'])-> name('romaneios.update');
     Route::any('/romaneios/destroy/{romaneio}', [RomaneioController::class, 'destroy'])-> name('romaneios.destroy');
 
+
+
+
+    // //Notas Romaneios
+
+    // Route::get('/notasromaneios', [NotaRomaneioController::class, 'list'])-> name('notaromaneio.list');
+    // Route::any('/notasromaneios/create', [NotaRomaneioController::class, 'create'])-> name('notaromaneio.create');
+    // Route::post('/notasromaneios/store', [NotaRomaneioController::class, 'store'])-> name('notaromaneio.store');
+    // Route::get('/notasromaneios/show/{notaromaneio}', [NotaRomaneioController::class, 'show'])-> name('notaromaneio.show');
+    // Route::get('/notasromaneios/edit/{notaromaneio}', [NotaRomaneioController::class, 'edit'])-> name('notaromaneio.edit');
+    // Route::put('/notasromaneios/update/{notaromaneio}', [NotaRomaneioController::class, 'update'])-> name('notaromaneio.update');
+    // Route::any('/notasromaneios/destroy/{notaromaneio}', [NotaRomaneioController::class, 'destroy'])-> name('notaromaneio.destroy');
+
 });
+
+
+
+
+
 
 require __DIR__.'/auth.php';

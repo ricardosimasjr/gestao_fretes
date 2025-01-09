@@ -23,12 +23,12 @@
     <form action="{{ route('notas.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="row">
-            <div class="col-1 mb-3">
+            <div class="col-2 mb-3">
                 <label for="nfe" class="form-label">NF-e</label>
                 <input type="text" class="form-control" id="nfe" name="nfe"
                     value="@if(isset($nota)){{$nota}}@endif" readonly>
             </div>
-            <div class="col-2 mb-3">
+            <div class="col-3 mb-3">
                 <label for="cpfcnpj" class="form-label">Cpf/Cnpj</label>
                 <input type="text" class="form-control" id="cpfcnpj" name="cpfcnpj"
                     value="@if(isset($cpfcnpj)){{$cpfcnpj}}@endif" readonly>
@@ -37,11 +37,6 @@
                 <label for="razaosocial" class="form-label">Cliente</label>
                 <input type="text" class="form-control" id="razaosocial" name="razaosocial"
                     value="@if(isset($razaosocial)){{$razaosocial}}@endif" readonly>
-            </div>
-            <div class="col-2 mb-3">
-                <label for="municipio" class="form-label">municipio</label>
-                <input type="text" class="form-control" id="municipio" name="municipio"
-                    value="@if(isset($municipio)){{$municipio}}@endif" readonly>
             </div>
             <div class="col-1 mb-3">
                 <label for="ufcliente" class="form-label">UF</label>

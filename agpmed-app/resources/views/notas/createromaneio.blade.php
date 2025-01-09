@@ -20,9 +20,13 @@
     </div>
     <hr>
 
-    <form action="{{ route('notas.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('notas.storeromaneio') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="row">
+            <div>
+                <input type="text" class="form-control" id="romaneio_id" name="romaneio_id"
+                    value="{{$romaneio}}" hidden>
+            </div>
             <div class="col-1 mb-3">
                 <label for="nfe" class="form-label">NF-e</label>
                 <input type="text" class="form-control" id="nfe" name="nfe"
@@ -48,6 +52,7 @@
                 <input type="text" class="form-control" id="ufcliente" name="ufcliente"
                     value="@if(isset($uf)){{$uf}}@endif" readonly>
             </div>
+
         </div>
         <div class="row">
             <div class="col-2 mb-3">

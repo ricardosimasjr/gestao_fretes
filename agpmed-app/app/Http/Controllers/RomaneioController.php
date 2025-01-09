@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nota;
 use App\Models\Romaneio;
 use App\Models\Status;
 use App\Models\Transportador;
+use App\Services\ErpNomus\Endpoints\Notas;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -46,7 +48,26 @@ class RomaneioController extends Controller
 
     public function show(Romaneio $romaneio)
     {
-        //
+
+        $id_romaneio = $romaneio->id;
+
+        $notas = Nota::where('romaneio_id', "=", $id_romaneio)
+        ->get();
+
+        $today = Carbon::today();
+        $transportadora = Transportador::find($romaneio->transportador_id);
+        $transportadoras = Transportador::get();
+        $user = User::find($romaneio->user_id);
+        $status = Status::find($romaneio->status_id);
+        return view('romaneios.show', [
+            'transportadora' => $transportadora,
+            'transportadoras' => $transportadoras,
+            'status' => $status,
+            'user' => $user,
+            'today' => $today,
+            'romaneio' => $romaneio,
+            'notas' => $notas,
+        ]);
     }
 
     public function edit(Romaneio $romaneio)
@@ -83,6 +104,8 @@ class RomaneioController extends Controller
         } catch (\Throwable $th) {
             dd($th);
         }
+
+        return redirect(route('romaneios.list'));
 
     }
 

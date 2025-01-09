@@ -13,8 +13,10 @@ class Nota extends Model
 
     protected $fillable = [
         'nfe',
+        'romaneio_id',
         'cpfcnpj',
         'razaosocial',
+        'municipio',
         'ufcliente',
         'emissao',
         'vendedor',

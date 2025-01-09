@@ -27,7 +27,7 @@
                     <a class="nav-link" href="{{ route('pedidos.list') }}">Pedidos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="{{ route('notas.list') }}">Notas</a>
+                    <a class="nav-link" href="{{ route('notas.list') }}">Notas</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('romaneios.list') }}">Romaneios</a>
